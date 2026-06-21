@@ -1,0 +1,182 @@
+[
+  {
+    "service_id": "SVC-001",
+    "name": "Cardiff Dementia Home Care Service",
+    "category": "home care",
+    "description": "Domiciliary care visits in the patient's own home, from 30-minute calls to several visits a day. Carers support personal care, medication prompting, meals and companionship. Workers are dementia-trained.",
+    "eligibility_criteria": "Adults with a confirmed dementia diagnosis assessed as having eligible personal-care or daily-living needs under the Social Services and Well-being (Wales) Act. Suitable for mild to severe stages. Requires a social care needs assessment.",
+    "postcode_coverage": ["CF3", "CF5", "CF10", "CF11", "CF14", "CF23", "CF24"],
+    "referral_process": "Requires a social worker referral following a needs assessment.",
+    "capacity_notes": "Typically a 1-2 week waiting list; urgent packages can sometimes be expedited."
+  },
+  {
+    "service_id": "SVC-002",
+    "name": "Llandaff Memory Day Centre",
+    "category": "day centre",
+    "description": "A dementia-friendly day centre offering structured activities, hot meals and social contact one to five days a week. Provides supervised respite for family carers during the day.",
+    "eligibility_criteria": "Adults with a dementia diagnosis, mild to moderate stage, who are mobile or wheelchair users and can be supported in a group setting. Not suitable for those requiring one-to-one nursing care.",
+    "postcode_coverage": ["CF5", "CF11", "CF14", "CF15"],
+    "referral_process": "Social worker referral or self-referral with GP supporting information.",
+    "capacity_notes": "Limited spaces; typically a 2-3 week waiting list for regular places."
+  },
+  {
+    "service_id": "SVC-003",
+    "name": "Cardiff & Vale Shared Lives (Dementia)",
+    "category": "shared lives",
+    "description": "Matches a person with dementia to an approved Shared Lives carer who provides support in a family home setting, either as day support, short breaks or long-term live-in arrangements.",
+    "eligibility_criteria": "Adults with mild to moderate dementia who would benefit from a small, homely setting rather than a care home. Must be assessed as able to engage in a family-based arrangement. Not suitable for those needing 24-hour nursing care.",
+    "postcode_coverage": ["CF3", "CF5", "CF10", "CF11", "CF14", "CF15", "CF23", "CF24"],
+    "referral_process": "Requires a social worker referral and a Shared Lives matching assessment.",
+    "capacity_notes": "Matching can take 4-6 weeks as it depends on finding a suitable carer."
+  },
+  {
+    "service_id": "SVC-004",
+    "name": "REACT Dementia Crisis Response Team",
+    "category": "crisis support",
+    "description": "A rapid-response team providing intensive short-term support at home to prevent hospital admission or support discharge during a crisis. Can put in same-day visits and assessment.",
+    "eligibility_criteria": "Adults with dementia experiencing an acute crisis or breakdown of support, at imminent risk of hospital admission or placement. Any stage. Time-limited intervention of up to six weeks.",
+    "postcode_coverage": ["CF3", "CF5", "CF10", "CF11", "CF14", "CF23", "CF24"],
+    "referral_process": "Urgent referral from a social worker, GP or hospital discharge team.",
+    "capacity_notes": "Immediate availability for genuine crises; intervention is short-term only."
+  },
+  {
+    "service_id": "SVC-005",
+    "name": "Cardiff Admiral Nurse Service",
+    "category": "memory support",
+    "description": "Specialist dementia nurses offering expert clinical advice, emotional support and help navigating services for families living with dementia. Particularly skilled with complex presentations.",
+    "eligibility_criteria": "Families and carers of people with a dementia diagnosis, especially where the presentation is complex (for example Lewy body, frontotemporal, or distressing behavioural and psychological symptoms). All stages.",
+    "postcode_coverage": ["CF3", "CF5", "CF10", "CF11", "CF14", "CF15", "CF23", "CF24"],
+    "referral_process": "GP referral, social worker referral or self-referral.",
+    "capacity_notes": "Usually contacted within one week; caseload-dependent."
+  },
+  {
+    "service_id": "SVC-006",
+    "name": "Ty Gwyn Residential Dementia Care Home",
+    "category": "residential care",
+    "description": "A registered residential care home specialising in dementia, providing 24-hour personal care, meals and activities in a secure, dementia-friendly environment.",
+    "eligibility_criteria": "Adults with moderate to severe dementia who can no longer be safely supported at home, assessed as needing 24-hour residential (non-nursing) care. Requires a social care assessment and financial assessment.",
+    "postcode_coverage": ["CF3", "CF5", "CF10", "CF11", "CF14", "CF23", "CF24"],
+    "referral_process": "Social worker referral following a residential care assessment.",
+    "capacity_notes": "Limited spaces; waiting list varies, currently around 3-4 weeks."
+  },
+  {
+    "service_id": "SVC-007",
+    "name": "Heol Las Nursing Dementia Unit",
+    "category": "nursing care",
+    "description": "A nursing home with a specialist unit for people with advanced dementia and complex health needs, providing 24-hour registered nursing care alongside personal care.",
+    "eligibility_criteria": "Adults with severe dementia and significant nursing needs such as advanced frailty, pressure-area care, or complex medication. Requires a nursing needs assessment (CHC consideration) and a financial assessment.",
+    "postcode_coverage": ["CF3", "CF5", "CF10", "CF11", "CF14", "CF23", "CF24"],
+    "referral_process": "Social worker or hospital referral with a nursing assessment.",
+    "capacity_notes": "Very limited spaces; admission depends on bed availability."
+  },
+  {
+    "service_id": "SVC-008",
+    "name": "Cardiff Carers Respite at Home",
+    "category": "respite care",
+    "description": "Provides planned sitting and replacement-care sessions in the patient's home so that family carers can take a break, attend appointments or rest. Flexible day and occasional overnight cover.",
+    "eligibility_criteria": "Family carers of a person with dementia who are at risk of strain or breakdown. The cared-for person can be at any stage. Usually follows a carer's assessment.",
+    "postcode_coverage": ["CF3", "CF5", "CF10", "CF11", "CF14", "CF23", "CF24"],
+    "referral_process": "Carer's assessment via social worker, or self-referral to the carers' team.",
+    "capacity_notes": "Day sessions usually available within 1-2 weeks; overnight cover is limited."
+  },
+  {
+    "service_id": "SVC-009",
+    "name": "Bryn Awel Respite Care Beds",
+    "category": "respite care",
+    "description": "Short-stay residential respite beds (typically one to two weeks) giving family carers a longer break while the person with dementia is cared for in a safe residential setting.",
+    "eligibility_criteria": "Adults with moderate to severe dementia whose carer needs a planned break, or for short-term recovery. Requires a social care assessment and is subject to a financial assessment.",
+    "postcode_coverage": ["CF3", "CF5", "CF10", "CF11", "CF14", "CF23", "CF24"],
+    "referral_process": "Social worker referral; should be booked in advance.",
+    "capacity_notes": "Pre-booked stays; limited beds, book 3-4 weeks ahead where possible."
+  },
+  {
+    "service_id": "SVC-010",
+    "name": "Cardiff Telecare & Assistive Technology",
+    "category": "assistive technology",
+    "description": "Installs telecare equipment such as falls detectors, door sensors, medication dispensers and gas/cooker shut-off devices, linked to a 24-hour monitoring centre to support safe independent living.",
+    "eligibility_criteria": "Adults living at home with risks such as falls, wandering or kitchen safety, where technology can reduce risk. Any stage where the person can tolerate the equipment. Often used alongside a care package.",
+    "postcode_coverage": ["CF3", "CF5", "CF10", "CF11", "CF14", "CF15", "CF23", "CF24"],
+    "referral_process": "Social worker referral or self-referral; brief home assessment carried out.",
+    "capacity_notes": "Installation typically within 1-2 weeks of assessment."
+  },
+  {
+    "service_id": "SVC-011",
+    "name": "Cardiff Memory Support & Information Service",
+    "category": "memory support",
+    "description": "A community service offering post-diagnosis support, information sessions, peer groups and help with future planning for people recently diagnosed with dementia and their families.",
+    "eligibility_criteria": "Adults with a recent or mild dementia diagnosis and their carers. Best suited to early-stage individuals who are independent and want information, peer support and planning help.",
+    "postcode_coverage": ["CF3", "CF5", "CF10", "CF11", "CF14", "CF15", "CF23", "CF24"],
+    "referral_process": "Self-referral, GP or memory clinic referral.",
+    "capacity_notes": "Open access; immediate availability for information and groups."
+  },
+  {
+    "service_id": "SVC-012",
+    "name": "Cardiff Dementia Befriending Service",
+    "category": "befriending",
+    "description": "Matches a trained volunteer befriender to a person with dementia for regular visits or phone calls, reducing isolation and building a trusting relationship at a gentle pace.",
+    "eligibility_criteria": "Adults with dementia who are socially isolated, including those who are reluctant to accept formal care. Mild to moderate stage. No formal financial assessment required.",
+    "postcode_coverage": ["CF3", "CF5", "CF10", "CF11", "CF14", "CF15", "CF23", "CF24"],
+    "referral_process": "Self-referral, family referral or social worker referral.",
+    "capacity_notes": "Matching to a volunteer can take 2-4 weeks."
+  },
+  {
+    "service_id": "SVC-013",
+    "name": "Cardiff Carers Support & Advice Line",
+    "category": "carer support",
+    "description": "Provides carers' assessments, emotional support, training and advice on benefits and rights for people caring for someone with dementia, including referral on to respite and other services.",
+    "eligibility_criteria": "Any unpaid carer of a person with dementia in Cardiff. No diagnosis stage requirement for the cared-for person. Carers have a legal right to an assessment.",
+    "postcode_coverage": ["CF3", "CF5", "CF10", "CF11", "CF14", "CF15", "CF23", "CF24"],
+    "referral_process": "Self-referral or referral by any professional.",
+    "capacity_notes": "Advice available immediately; carers' assessments within 2-3 weeks."
+  },
+  {
+    "service_id": "SVC-014",
+    "name": "Riverside Specialist Behavioural Support Team",
+    "category": "behavioural support",
+    "description": "A specialist team supporting families managing distressed or challenging behaviour in dementia, offering home-based assessment, behavioural strategies and carer coaching.",
+    "eligibility_criteria": "Adults with dementia presenting with behavioural and psychological symptoms such as aggression, disinhibition, exit-seeking or severe agitation. Particularly relevant to frontotemporal and Lewy body presentations. Any stage.",
+    "postcode_coverage": ["CF3", "CF5", "CF10", "CF11", "CF14", "CF23", "CF24"],
+    "referral_process": "Referral from a social worker, GP, Admiral Nurse or memory clinic.",
+    "capacity_notes": "Initial assessment usually within 1-2 weeks for urgent behavioural concerns."
+  },
+  {
+    "service_id": "SVC-015",
+    "name": "Cardiff Reablement at Home Service",
+    "category": "reablement",
+    "description": "A short-term, intensive support service (up to six weeks) that helps people regain skills and confidence after a hospital stay or decline, with the aim of reducing longer-term care needs.",
+    "eligibility_criteria": "Adults recently discharged from hospital or following a decline, with the potential to regain independence. Suitable for mild to moderate dementia where reablement goals are realistic. Time-limited.",
+    "postcode_coverage": ["CF3", "CF5", "CF10", "CF11", "CF14", "CF23", "CF24"],
+    "referral_process": "Hospital discharge team or social worker referral.",
+    "capacity_notes": "Usually starts within a few days of discharge; six-week limit."
+  },
+  {
+    "service_id": "SVC-016",
+    "name": "Whitchurch Dementia Meals & Nutrition Support",
+    "category": "nutrition support",
+    "description": "Delivers tailored meals and provides nutrition monitoring and prompting for people with dementia at risk of poor intake, working alongside dietitians where needed.",
+    "eligibility_criteria": "Adults with dementia at risk of malnutrition, weight loss or poor hydration, particularly those living alone or refusing meals. Any stage.",
+    "postcode_coverage": ["CF5", "CF11", "CF14", "CF15", "CF23"],
+    "referral_process": "Social worker, district nurse or GP referral.",
+    "capacity_notes": "Meal deliveries can usually start within one week."
+  },
+  {
+    "service_id": "SVC-017",
+    "name": "Cardiff Night Owl Overnight Support",
+    "category": "home care",
+    "description": "Provides waking-night or sleep-in carer support in the patient's home for people with dementia who are unsafe overnight, for example due to night-time wandering or frequent falls.",
+    "eligibility_criteria": "Adults with dementia assessed as having significant overnight risks such as exit-seeking, wandering or repeated night falls, where daytime support alone is insufficient. Requires a needs assessment evidencing overnight risk.",
+    "postcode_coverage": ["CF3", "CF5", "CF10", "CF11", "CF14", "CF23", "CF24"],
+    "referral_process": "Social worker referral following a needs assessment that evidences overnight risk.",
+    "capacity_notes": "Limited overnight capacity; typically a 2-4 week waiting list."
+  },
+  {
+    "service_id": "SVC-018",
+    "name": "Grangetown Community Dementia Hub",
+    "category": "day centre",
+    "description": "A neighbourhood drop-in hub offering dementia cafes, carer groups, gentle activities and signposting. A low-pressure way to stay socially connected without a formal care commitment.",
+    "eligibility_criteria": "People with dementia and their carers at any stage, with an emphasis on early to moderate stages and those reluctant to engage with formal services. No assessment required for drop-in sessions.",
+    "postcode_coverage": ["CF10", "CF11", "CF24"],
+    "referral_process": "Open access; self-referral, no appointment needed.",
+    "capacity_notes": "Drop-in sessions, immediate availability."
+  }
+]

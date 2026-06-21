@@ -1,0 +1,86 @@
+[
+  {
+    "patient_id": "PT-001",
+    "diagnosis_summary": "Alzheimer's disease, moderate stage. Cognitively stable on current treatment; main issues are at home rather than clinical.",
+    "medication": ["Donepezil 10mg once daily", "Amlodipine 5mg once daily"],
+    "discharge_readiness_score": "Ready",
+    "outstanding_clinical_tasks": ["Awaiting falls clinic follow-up appointment"]
+  },
+  {
+    "patient_id": "PT-002",
+    "diagnosis_summary": "Vascular dementia following two lacunar strokes. Step-wise cognitive decline, cardiovascular risk factors managed.",
+    "medication": ["Clopidogrel 75mg once daily", "Atorvastatin 40mg once daily"],
+    "discharge_readiness_score": "Ready",
+    "outstanding_clinical_tasks": ["GP to review options for night-time agitation"]
+  },
+  {
+    "patient_id": "PT-003",
+    "diagnosis_summary": "Mixed dementia (Alzheimer's and vascular), severe stage, with advanced frailty and limited mobility.",
+    "medication": ["Memantine 20mg once daily", "Paracetamol 1g as required", "Macrogol sachets"],
+    "discharge_readiness_score": "Pending OT assessment",
+    "outstanding_clinical_tasks": ["Awaiting OT home visit report", "Awaiting dietitian review for weight loss"]
+  },
+  {
+    "patient_id": "PT-004",
+    "diagnosis_summary": "Early-stage Alzheimer's disease. Good insight, independent in activities of daily living.",
+    "medication": ["Donepezil 5mg once daily"],
+    "discharge_readiness_score": "Ready",
+    "outstanding_clinical_tasks": ["DVLA notification of diagnosis pending", "Driving assessment to be arranged"]
+  },
+  {
+    "patient_id": "PT-005",
+    "diagnosis_summary": "Alzheimer's disease, moderate stage, with significant safety concerns living alone.",
+    "medication": ["Rivastigmine transdermal patch 9.5mg/24h"],
+    "discharge_readiness_score": "Not yet assessed",
+    "outstanding_clinical_tasks": ["Awaiting OT home safety assessment", "Kitchen/fire risk assessment requested"]
+  },
+  {
+    "patient_id": "PT-006",
+    "diagnosis_summary": "Lewy body dementia with fluctuating cognition and visual hallucinations. Marked antipsychotic sensitivity — avoid typical antipsychotics.",
+    "medication": ["Rivastigmine 6mg twice daily", "Co-careldopa 25/100mg three times daily"],
+    "discharge_readiness_score": "Ready",
+    "outstanding_clinical_tasks": ["Memory clinic medication review for hallucinations"]
+  },
+  {
+    "patient_id": "PT-007",
+    "diagnosis_summary": "Severe vascular dementia. Recent admission with a fall and chest infection, now treated. High frailty.",
+    "medication": ["Aspirin 75mg once daily", "Course of amoxicillin completed"],
+    "discharge_readiness_score": "Discharged — not yet reassessed in the community",
+    "outstanding_clinical_tasks": ["Urgent social care reassessment required", "Awaiting OT and physiotherapy review"]
+  },
+  {
+    "patient_id": "PT-008",
+    "diagnosis_summary": "Frontotemporal dementia, behavioural variant. Memory relatively preserved; prominent disinhibition and impulsivity.",
+    "medication": ["Trazodone 50mg at night"],
+    "discharge_readiness_score": "Ready",
+    "outstanding_clinical_tasks": ["Neurology follow-up for behavioural management"]
+  },
+  {
+    "patient_id": "PT-009",
+    "diagnosis_summary": "Alzheimer's disease, moderate stage, with associated anxiety. Settled within a familiar routine.",
+    "medication": ["Donepezil 10mg once daily", "Sertraline 50mg once daily"],
+    "discharge_readiness_score": "Ready",
+    "outstanding_clinical_tasks": []
+  },
+  {
+    "patient_id": "PT-010",
+    "diagnosis_summary": "Early-stage Alzheimer's disease. Independent and socially active; low current clinical need.",
+    "medication": ["Donepezil 5mg once daily"],
+    "discharge_readiness_score": "Ready",
+    "outstanding_clinical_tasks": []
+  },
+  {
+    "patient_id": "PT-011",
+    "diagnosis_summary": "Mixed dementia, moderate stage, with low mood and prominent anxiety. Reluctant to engage with services.",
+    "medication": ["Memantine 10mg once daily", "Mirtazapine 15mg at night"],
+    "discharge_readiness_score": "Ready",
+    "outstanding_clinical_tasks": ["GP review of mood and engagement"]
+  },
+  {
+    "patient_id": "PT-012",
+    "diagnosis_summary": "Vascular dementia following a major stroke, with right-sided hemiplegia. Requires assistance with transfers.",
+    "medication": ["Clopidogrel 75mg once daily", "Baclofen 10mg three times daily"],
+    "discharge_readiness_score": "Pending OT assessment",
+    "outstanding_clinical_tasks": ["Awaiting OT moving-and-handling review", "Hoist provided, training for carer required"]
+  }
+]

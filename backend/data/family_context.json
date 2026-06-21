@@ -1,0 +1,74 @@
+[
+  {
+    "patient_id": "PT-001",
+    "family_preferences": "Daughter strongly prefers her mother to remain at home with support rather than move into residential care.",
+    "consent_on_file": true,
+    "transport_notes": "Daughter lives in Bristol and can only visit fortnightly; no reliable local transport for appointments."
+  },
+  {
+    "patient_id": "PT-002",
+    "family_preferences": "Wife wants to keep caring for her husband at home but urgently needs respite and overnight reassurance.",
+    "consent_on_file": true,
+    "transport_notes": "Wife does not drive and relies on community transport; getting to appointments is difficult."
+  },
+  {
+    "patient_id": "PT-003",
+    "family_preferences": "Son and daughter-in-law are committed to home care and are resistant to residential placement at this stage.",
+    "consent_on_file": true,
+    "transport_notes": "Son can provide transport to a day centre twice a week around his shift work."
+  },
+  {
+    "patient_id": "PT-004",
+    "family_preferences": "Patient and son prefer early information, peer support and future planning over any formal care package.",
+    "consent_on_file": true,
+    "transport_notes": "Patient still drives locally (under review); son lives nearby and can assist if needed."
+  },
+  {
+    "patient_id": "PT-005",
+    "family_preferences": "Niece (holds lasting power of attorney) prefers a structured home-care package with telecare to keep her aunt safe at home.",
+    "consent_on_file": true,
+    "transport_notes": "Niece lives in Newport and can only attend roughly monthly; limited transport support locally."
+  },
+  {
+    "patient_id": "PT-006",
+    "family_preferences": "Husband wishes to continue caring at home and is keen on flexible respite that fits around his own hospital appointments.",
+    "consent_on_file": true,
+    "transport_notes": "Husband drives and can transport to day services or respite."
+  },
+  {
+    "patient_id": "PT-007",
+    "family_preferences": "No known family contact; no stated preferences on file. Decisions likely to require a best-interests process.",
+    "consent_on_file": false,
+    "transport_notes": "No family transport available; any appointments will need arranged transport."
+  },
+  {
+    "patient_id": "PT-008",
+    "family_preferences": "Wife and daughter prefer specialist behavioural support at home and help managing financial risk, rather than residential care.",
+    "consent_on_file": true,
+    "transport_notes": "Family can provide transport to appointments and structured day activities."
+  },
+  {
+    "patient_id": "PT-009",
+    "family_preferences": "Family would welcome a dementia-friendly day centre a couple of days a week for social contact and to give the husband a break.",
+    "consent_on_file": true,
+    "transport_notes": "Daughter can provide transport to a day centre on weekdays."
+  },
+  {
+    "patient_id": "PT-010",
+    "family_preferences": "Son prefers his father linked into community memory support now, with planning for the future.",
+    "consent_on_file": true,
+    "transport_notes": "Son provides transport and helps with shopping and paperwork weekly."
+  },
+  {
+    "patient_id": "PT-011",
+    "family_preferences": "Son believes his mother needs daily support; she herself currently declines most help, so engagement must be gentle.",
+    "consent_on_file": false,
+    "transport_notes": "Son visits weekly and can provide occasional transport; patient reluctant to leave the house."
+  },
+  {
+    "patient_id": "PT-012",
+    "family_preferences": "Daughter wants to keep her father at home but needs a personal-care package and respite to protect her own health.",
+    "consent_on_file": true,
+    "transport_notes": "Daughter works part-time and has limited capacity to provide transport during the week."
+  }
+]

@@ -1,0 +1,411 @@
+[
+  {
+    "patient_id": "PT-001",
+    "name": "Gwendoline Pritchard",
+    "age": 82,
+    "postcode_area": "CF14",
+    "dementia_type": "Alzheimer's disease",
+    "diagnosis_stage": "moderate",
+    "living_situation": "lives alone",
+    "mobility": "uses walking aid",
+    "cognitive_notes": "Short-term memory loss, repeats questions, forgets whether she has eaten. Becomes disoriented in the evenings (sundowning). Manages familiar routines but struggles with anything new.",
+    "carer_present": false,
+    "carer_notes": "No live-in carer. Daughter lives in Bristol and visits roughly fortnightly; reports feeling stretched and worried.",
+    "current_support": "Weekly cleaner (privately arranged). No formal care package.",
+    "risk_flags": [
+      "falls risk",
+      "social isolation",
+      "medication non-adherence"
+    ],
+    "allocated_social_worker": "Rhian Davies",
+    "funding_status": "pending financial assessment",
+    "assessment_date": "2026-05-12",
+    "assessor_notes": "Mrs Pritchard presents as warm and sociable but clearly under-supported living alone. Two recent near-falls on the stairs. Evidence of missed medication (full dosette boxes). Personal care is the key point of disagreement between her daughter and the ward team and needs clarifying before a package is set.",
+    "source_notes": [
+      {
+        "source": "family/carer",
+        "note": "Mum can't manage washing and dressing on her own any more. When I visit she's often in yesterday's clothes and hasn't washed. She needs hands-on help with personal care every morning."
+      },
+      {
+        "source": "ward nursing record",
+        "note": "Patient independent with personal care during admission. Washed and dressed herself unaided on the ward each morning. No assistance required with bathing or continence."
+      },
+      {
+        "source": "social worker observation",
+        "note": "On home visit Mrs Pritchard was clean and appropriately dressed but admitted she 'sometimes can't be bothered' when alone. Likely prompting rather than hands-on help needed, but accounts conflict."
+      }
+    ]
+  },
+  {
+    "patient_id": "PT-002",
+    "name": "Idris Hopkin",
+    "age": 78,
+    "postcode_area": "CF5",
+    "dementia_type": "vascular dementia",
+    "diagnosis_stage": "moderate",
+    "living_situation": "lives with spouse",
+    "mobility": "independent",
+    "cognitive_notes": "Step-wise decline following two small strokes. Word-finding difficulty, some impulsivity, occasional aggression when frustrated. Better in the mornings.",
+    "carer_present": true,
+    "carer_notes": "Wife (Marian, 75) is sole carer and reports exhaustion and disturbed sleep. Says she 'can't keep going like this' without a break.",
+    "current_support": "None formal. Wife provides all care.",
+    "risk_flags": [
+      "carer breakdown risk",
+      "wandering risk",
+      "aggression when distressed"
+    ],
+    "allocated_social_worker": "Carys Bevan",
+    "funding_status": "local authority funded",
+    "assessment_date": "2026-05-20",
+    "assessor_notes": "Classic picture of an exhausted spousal carer at risk of breakdown. Mr Hopkin himself is physically well but needs supervision. There is disagreement about night-time wandering that affects what overnight support, if any, is justified.",
+    "source_notes": [
+      {
+        "source": "family/carer",
+        "note": "He gets up in the night and tries to leave the house, says he's 'going to work'. Last week I found him at the front door at 3am with his coat on. I daren't sleep properly. It's the wandering at night that frightens me most."
+      },
+      {
+        "source": "social worker observation",
+        "note": "During two daytime visits Mr Hopkin was settled and oriented to place. No attempts to leave. Wife's account of night-time exit-seeking is plausible but I have not observed it; recommend overnight monitoring before assuming high wandering risk."
+      }
+    ]
+  },
+  {
+    "patient_id": "PT-003",
+    "name": "Beryl Watkins",
+    "age": 88,
+    "postcode_area": "CF11",
+    "dementia_type": "mixed dementia",
+    "diagnosis_stage": "severe",
+    "living_situation": "lives with family",
+    "mobility": "wheelchair user",
+    "cognitive_notes": "Severe cognitive impairment, limited verbal communication, does not recognise most family members. Requires full assistance with all daily activities.",
+    "carer_present": true,
+    "carer_notes": "Lives with son and daughter-in-law. They are committed but the daughter-in-law has her own health problems and they describe being 'at the end of their tether'.",
+    "current_support": "Day centre twice a week. District nurse weekly for skin care.",
+    "risk_flags": [
+      "pressure sores",
+      "malnutrition risk",
+      "carer breakdown risk",
+      "manual handling needs"
+    ],
+    "allocated_social_worker": "Mark Foley",
+    "funding_status": "local authority funded",
+    "assessment_date": "2026-04-30",
+    "assessor_notes": "High-dependency case. Family providing intensive care and approaching crisis. Nutrition is a flashpoint: the family insist she eats well, the nursing record documents weight loss. This needs resolving as it affects both the nutrition plan and the case for increased support.",
+    "source_notes": [
+      {
+        "source": "family/carer",
+        "note": "Nan eats really well, we make all her favourites and she finishes most meals. We don't think there's any problem with her eating or her weight."
+      },
+      {
+        "source": "ward nursing record",
+        "note": "Documented weight loss of 4kg over the past three months. Frequently refuses meals on the ward, requires prompting and is at risk of malnutrition. MUST score elevated. Dietitian referral made."
+      },
+      {
+        "source": "social worker observation",
+        "note": "Family clearly devoted but may be under-reporting difficulties to avoid residential placement. Visible weight loss noted. Recommend weight monitoring and joint discussion with the dietitian."
+      }
+    ]
+  },
+  {
+    "patient_id": "PT-004",
+    "name": "Trevor Llewellyn",
+    "age": 74,
+    "postcode_area": "CF3",
+    "dementia_type": "Alzheimer's disease",
+    "diagnosis_stage": "mild",
+    "living_situation": "lives alone",
+    "mobility": "independent",
+    "cognitive_notes": "Early-stage. Mild forgetfulness, occasionally misses appointments, still drives locally (under review). Good insight into his diagnosis and keen to stay independent.",
+    "carer_present": false,
+    "carer_notes": "No carer. Has a supportive neighbour and a son who phones daily.",
+    "current_support": "None. Self-managing with reminders on his phone.",
+    "risk_flags": [
+      "social isolation",
+      "driving safety under review"
+    ],
+    "allocated_social_worker": "Sioned Lewis",
+    "funding_status": "self-funded",
+    "assessment_date": "2026-06-02",
+    "assessor_notes": "Early-stage, high-functioning gentleman who wants to plan ahead. Ideal candidate for preventative and community-based memory support rather than home care. Sources broadly consistent.",
+    "source_notes": [
+      {
+        "source": "family/carer",
+        "note": "Dad's doing well overall, just a bit forgetful. He'd really value something social and some help understanding what's coming so he can plan while he's still able."
+      },
+      {
+        "source": "social worker observation",
+        "note": "Mr Llewellyn is articulate, independent and motivated. Main needs are information, peer support and future planning. Agrees driving should be reviewed."
+      }
+    ]
+  },
+  {
+    "patient_id": "PT-005",
+    "name": "Eira Bowen",
+    "age": 85,
+    "postcode_area": "CF23",
+    "dementia_type": "Alzheimer's disease",
+    "diagnosis_stage": "moderate",
+    "living_situation": "lives alone",
+    "mobility": "uses walking aid",
+    "cognitive_notes": "Moderate memory impairment, leaves taps running and the cooker on. Repeatedly mislays keys and money, sometimes accuses neighbours of theft.",
+    "carer_present": false,
+    "carer_notes": "Widowed, no children locally. A niece in Newport holds power of attorney but visits monthly.",
+    "current_support": "None formal. Meals occasionally dropped off by a neighbour.",
+    "risk_flags": [
+      "falls risk",
+      "fire/safety risk in kitchen",
+      "self-neglect",
+      "social isolation",
+      "financial vulnerability"
+    ],
+    "allocated_social_worker": "Rhian Davies",
+    "funding_status": "pending financial assessment",
+    "assessment_date": "2026-05-28",
+    "assessor_notes": "Significant safety concerns living alone, particularly the cooker being left on. Strong case for a structured home-care package plus assistive technology. Sources broadly consistent on the safety risks.",
+    "source_notes": [
+      {
+        "source": "family/carer",
+        "note": "My aunt has left the gas on twice that we know of. I'm terrified there'll be a fire. She also can't keep track of money. She needs proper daily support, I can't keep driving from Newport."
+      },
+      {
+        "source": "social worker observation",
+        "note": "Confirmed scorch mark on a pan and a recent near-miss with the cooker. Mrs Bowen minimises the risks. Kitchen safety and daily prompting are priorities; assistive technology likely to help."
+      }
+    ]
+  },
+  {
+    "patient_id": "PT-006",
+    "name": "Glyn Rees",
+    "age": 80,
+    "postcode_area": "CF24",
+    "dementia_type": "Lewy body dementia",
+    "diagnosis_stage": "moderate",
+    "living_situation": "lives with spouse",
+    "mobility": "uses walking aid",
+    "cognitive_notes": "Fluctuating cognition, vivid visual hallucinations, and marked motor stiffness. Some days lucid, other days very confused. Sensitive to antipsychotic medication.",
+    "carer_present": true,
+    "carer_notes": "Husband (Aled) is the carer; copes reasonably but finds the hallucinations distressing and wants respite to attend his own hospital appointments.",
+    "current_support": "Memory clinic follow-up. No home care.",
+    "risk_flags": [
+      "falls risk",
+      "medication sensitivity",
+      "carer respite needs"
+    ],
+    "allocated_social_worker": "Carys Bevan",
+    "funding_status": "local authority funded",
+    "assessment_date": "2026-05-15",
+    "assessor_notes": "Lewy body presentation with fluctuating needs. Carer is coping but needs planned respite. Sources broadly consistent.",
+    "source_notes": [
+      {
+        "source": "family/carer",
+        "note": "Some days Glyn is almost himself, other days he sees children in the garden that aren't there and gets very frightened. I manage, but I need cover for my own hospital appointments next month."
+      },
+      {
+        "source": "social worker observation",
+        "note": "Presentation consistent with Lewy body dementia. Husband is a capable carer whose main need is reliable, flexible respite. Falls risk noted due to stiffness and fluctuating attention."
+      }
+    ]
+  },
+  {
+    "patient_id": "PT-007",
+    "name": "Marian Hughes",
+    "age": 90,
+    "postcode_area": "CF10",
+    "dementia_type": "vascular dementia",
+    "diagnosis_stage": "severe",
+    "living_situation": "lives alone",
+    "mobility": "wheelchair user",
+    "cognitive_notes": "Severe impairment with limited short-term retention. Disoriented to time and place. Needs full support but currently has almost none in place.",
+    "carer_present": false,
+    "carer_notes": "No family contact known. Referred by her GP after a welfare check.",
+    "current_support": "None. Recently discharged from hospital with no package.",
+    "risk_flags": [
+      "falls risk",
+      "self-neglect",
+      "malnutrition risk",
+      "social isolation",
+      "safeguarding concern"
+    ],
+    "allocated_social_worker": "Mark Foley",
+    "funding_status": "local authority funded",
+    "assessment_date": "2026-06-09",
+    "assessor_notes": "Urgent, high-risk case: a very frail woman with severe dementia discharged home alone without support. Likely needs crisis intervention and may not be safe to remain at home. Sources consistent on the severity.",
+    "source_notes": [
+      {
+        "source": "ward nursing record",
+        "note": "Discharged following a fall and chest infection. Required full assistance with all care on the ward. No package of care was in place at discharge. Flagged as a concern by the discharge team."
+      },
+      {
+        "source": "social worker observation",
+        "note": "Home visit found Mrs Hughes cold, unkempt and with little food in the house. She could not reliably say what day it was. This is a safeguarding-level concern requiring an urgent response."
+      }
+    ]
+  },
+  {
+    "patient_id": "PT-008",
+    "name": "Dewi Morgan",
+    "age": 76,
+    "postcode_area": "CF15",
+    "dementia_type": "frontotemporal dementia",
+    "diagnosis_stage": "moderate",
+    "living_situation": "lives with family",
+    "mobility": "independent",
+    "cognitive_notes": "Marked personality and behavioural change, disinhibition, loss of social awareness, impulsive spending. Memory relatively preserved.",
+    "carer_present": true,
+    "carer_notes": "Wife and adult daughter share care. They cope physically but the behavioural changes and embarrassment in public are very hard on them.",
+    "current_support": "None formal. Under neurology follow-up.",
+    "risk_flags": [
+      "behavioural risk",
+      "financial vulnerability",
+      "carer strain"
+    ],
+    "allocated_social_worker": "Sioned Lewis",
+    "funding_status": "self-funded",
+    "assessment_date": "2026-05-22",
+    "assessor_notes": "Frontotemporal presentation where the challenge is behaviour, not physical care. Family need specialist behavioural support and carer education. There is some disagreement about how much supervision is genuinely needed during the day.",
+    "source_notes": [
+      {
+        "source": "family/carer",
+        "note": "Dewi can't be left alone at all. He spent £2,000 on online purchases last month and walked out of a shop without paying. Someone has to watch him every minute of the day."
+      },
+      {
+        "source": "social worker observation",
+        "note": "Disinhibition is real and the financial risk is significant, but during my visit Mr Morgan sat and watched television unsupervised for a period without incident. Constant one-to-one supervision may be more than is strictly required; structured daytime activity could help."
+      }
+    ]
+  },
+  {
+    "patient_id": "PT-009",
+    "name": "Olwen Davies",
+    "age": 83,
+    "postcode_area": "CF14",
+    "dementia_type": "Alzheimer's disease",
+    "diagnosis_stage": "moderate",
+    "living_situation": "lives with spouse",
+    "mobility": "uses walking aid",
+    "cognitive_notes": "Moderate memory loss, repetitive questioning, anxiety in unfamiliar settings. Settled and content within her own home and routine.",
+    "carer_present": true,
+    "carer_notes": "Husband provides most care with help from a daughter nearby. Coping for now but would benefit from a day service to give structure and social contact.",
+    "current_support": "Daughter visits daily. No formal services.",
+    "risk_flags": [
+      "falls risk",
+      "anxiety",
+      "carer support needs"
+    ],
+    "allocated_social_worker": "Rhian Davies",
+    "funding_status": "local authority funded",
+    "assessment_date": "2026-05-08",
+    "assessor_notes": "Stable, well-supported case where a day centre would add social value and give the husband regular respite. Sources consistent.",
+    "source_notes": [
+      {
+        "source": "family/carer",
+        "note": "Mum is happy at home but Dad never gets a break. A couple of days a week somewhere she could be with other people would do them both good."
+      },
+      {
+        "source": "social worker observation",
+        "note": "Mrs Davies is settled and well cared for. A dementia-friendly day service would provide social stimulation and planned respite for her husband."
+      }
+    ]
+  },
+  {
+    "patient_id": "PT-010",
+    "name": "Howard Pugh",
+    "age": 79,
+    "postcode_area": "CF5",
+    "dementia_type": "Alzheimer's disease",
+    "diagnosis_stage": "mild",
+    "living_situation": "lives alone",
+    "mobility": "independent",
+    "cognitive_notes": "Early-stage, mostly independent. Occasional forgetfulness with bills and appointments. Keen gardener and still active in his chapel community.",
+    "carer_present": false,
+    "carer_notes": "Widower. Two sons, one local who helps with finances and shopping.",
+    "current_support": "Son assists with paperwork weekly. No care needs yet.",
+    "risk_flags": [
+      "social isolation risk (future)",
+      "medication reminders helpful"
+    ],
+    "allocated_social_worker": "Carys Bevan",
+    "funding_status": "self-funded",
+    "assessment_date": "2026-06-05",
+    "assessor_notes": "Early-stage, low current need. Best served by community memory support and forward planning rather than care services. Sources consistent.",
+    "source_notes": [
+      {
+        "source": "family/carer",
+        "note": "Dad's coping fine for now. We just want to get him linked in with something for the future and a bit of support so it doesn't all fall on me."
+      },
+      {
+        "source": "social worker observation",
+        "note": "Independent and socially active. Signposting to a memory support service and a carers' assessment for the son are the appropriate next steps."
+      }
+    ]
+  },
+  {
+    "patient_id": "PT-011",
+    "name": "Nesta Jenkins",
+    "age": 86,
+    "postcode_area": "CF3",
+    "dementia_type": "mixed dementia",
+    "diagnosis_stage": "moderate",
+    "living_situation": "lives alone",
+    "mobility": "uses walking aid",
+    "cognitive_notes": "Moderate dementia with prominent anxiety and low mood. Reluctant to accept help and can be resistant to strangers entering the home.",
+    "carer_present": false,
+    "carer_notes": "A son visits weekly. He is worried she is lonely and declining but she refuses most offers of help.",
+    "current_support": "None. Has previously declined home care.",
+    "risk_flags": [
+      "social isolation",
+      "low mood",
+      "falls risk",
+      "reluctant to engage with services"
+    ],
+    "allocated_social_worker": "Mark Foley",
+    "funding_status": "pending financial assessment",
+    "assessment_date": "2026-05-26",
+    "assessor_notes": "Capable but isolated and service-resistant. Engagement needs to be gentle and relationship-based. There is disagreement between the son and the patient about whether help is needed at all.",
+    "source_notes": [
+      {
+        "source": "family/carer",
+        "note": "Mum's gone downhill since Dad died. She barely leaves the house and won't let carers in. She needs daily support whether she admits it or not."
+      },
+      {
+        "source": "social worker observation",
+        "note": "Mrs Jenkins was adamant she 'manages perfectly well' and does not want strangers in her home. Forcing a package now would likely fail; a low-key befriending or community approach is more realistic as a first step."
+      }
+    ]
+  },
+  {
+    "patient_id": "PT-012",
+    "name": "Emrys Thomas",
+    "age": 81,
+    "postcode_area": "CF24",
+    "dementia_type": "vascular dementia",
+    "diagnosis_stage": "moderate",
+    "living_situation": "lives with family",
+    "mobility": "wheelchair user",
+    "cognitive_notes": "Moderate impairment following a major stroke. Communication limited to short phrases. Needs help with transfers and most personal care.",
+    "carer_present": true,
+    "carer_notes": "Daughter is the main carer and works part-time. She manages but the manual handling is becoming difficult and she has back problems.",
+    "current_support": "Carer's allowance. Equipment (hoist) in place. No personal-care package.",
+    "risk_flags": [
+      "manual handling needs",
+      "carer strain",
+      "pressure sores",
+      "falls risk during transfers"
+    ],
+    "allocated_social_worker": "Sioned Lewis",
+    "funding_status": "local authority funded",
+    "assessment_date": "2026-05-18",
+    "assessor_notes": "Physical-care case where the carer's own health is the limiting factor. A personal-care package and possibly respite would protect the placement. Sources broadly consistent.",
+    "source_notes": [
+      {
+        "source": "family/carer",
+        "note": "I love looking after Dad but my back's going. The lifting and washing is too much on my own. I need help with his personal care in the mornings or I won't be able to keep him at home."
+      },
+      {
+        "source": "ward nursing record",
+        "note": "Patient requires two-person assistance for transfers and full support with personal care. Hoist provided. Recommend a package of care to support the family carer on discharge."
+      }
+    ]
+  }
+]
