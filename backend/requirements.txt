@@ -1,0 +1,25 @@
+# Web framework
+fastapi==0.137.2
+uvicorn[standard]==0.49.0
+python-multipart==0.0.32
+
+# Config & validation
+pydantic==2.13.4
+pydantic-settings==2.14.1
+python-dotenv==1.2.2
+
+# LLM & embeddings (Google AI Studio / Gemini)
+google-genai==2.8.0
+
+# Vector store
+chromadb==1.5.9
+
+# PDF handling
+pypdf==6.13.3
+reportlab==5.0.0
+
+# Testing & quality
+pytest==9.1.0
+pytest-cov==7.1.0
+httpx==0.28.1
+ruff==0.15.17

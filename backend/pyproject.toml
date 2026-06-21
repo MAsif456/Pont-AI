@@ -1,0 +1,33 @@
+[project]
+name = "pont-backend"
+version = "0.1.0"
+description = "Pont AI -- social-care referral matching backend"
+requires-python = ">=3.11"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+# Exclude generated and vendored directories from linting.
+extend-exclude = [".venv", "data/chroma"]
+
+[tool.ruff.lint]
+# pycodestyle, pyflakes, isort, bugbear, comprehensions, pyupgrade.
+select = ["E", "F", "I", "B", "C4", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+# FastAPI's Depends()/File() defaults are the framework's documented idiom.
+"routers/*" = ["B008"]
+# These modules are dominated by long prompt templates and keyword-data literals
+# that cannot be wrapped without changing their content.
+"agents/prompts.py" = ["E501"]
+"core/report_generator.py" = ["E501"]
+"core/llm/mock/extract.py" = ["E501"]
+"core/llm/mock/agent.py" = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.coverage.run]
+source = ["core", "tools", "agents", "routers", "models"]
+omit = ["tests/*", "scripts/*"]
