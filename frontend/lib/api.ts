@@ -8,7 +8,9 @@ import type {
   CaseSummary,
   PatientCase,
   PatientSummary,
+  Referral,
   ReferralReport,
+  ReferralSource,
   SourceNoteInput,
 } from "./types";
 
@@ -127,3 +129,41 @@ export function updateCaseStatus(
     body: JSON.stringify({ status, note }),
   });
 }
+
+// --- Referrals (coordination board) ---
+
+const jsonPost = (path: string, body?: unknown) =>
+  request<Referral>(path, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: body === undefined ? undefined : JSON.stringify(body),
+  });
+
+export interface CreateReferralBody {
+  patient_name: string;
+  source: ReferralSource;
+  reason_for_referral: string;
+  patient_id?: string | null;
+  electronic_note?: string | null;
+  handover_note?: string | null;
+}
+
+export function createReferral(body: CreateReferralBody): Promise<Referral> {
+  return jsonPost("/referrals", body);
+}
+
+export function listReferrals(): Promise<Referral[]> {
+  return request<Referral[]>("/referrals");
+}
+
+export function getReferral(id: string): Promise<Referral> {
+  return request<Referral>(`/referrals/${id}`);
+}
+
+export const screenReferral = (id: string) => jsonPost(`/referrals/${id}/screen`);
+export const assignReferral = (id: string, worker: string) =>
+  jsonPost(`/referrals/${id}/assign`, { worker });
+export const startReferral = (id: string) => jsonPost(`/referrals/${id}/start`);
+export const completeReferral = (id: string, caseId: string) =>
+  jsonPost(`/referrals/${id}/complete`, { case_id: caseId });
+export const approveReferral = (id: string) => jsonPost(`/referrals/${id}/approve`);

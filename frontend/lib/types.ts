@@ -137,3 +137,44 @@ export interface CaseStats {
   assessed_this_month: number;
   discrepancies_this_week: number;
 }
+
+// --- Referral intake & coordination layer ---
+
+export type ReferralSource =
+  | "ward_nursing"
+  | "ot"
+  | "discharge_liaison"
+  | "community_social_worker"
+  | "self_family";
+
+export type ReferralStatus =
+  | "new"
+  | "screened"
+  | "assigned"
+  | "in_progress"
+  | "report_ready"
+  | "approved"
+  | "closed_information_only"
+  | "closed_redirected";
+
+export type ScreeningOutcome =
+  | "information_only"
+  | "redirect"
+  | "proportionate_assessment";
+
+export interface Referral {
+  referral_id: string;
+  patient_id: string | null;
+  patient_name: string;
+  source: ReferralSource;
+  reason_for_referral: string;
+  electronic_note: string | null;
+  handover_note: string | null;
+  referred_at: string;
+  status: ReferralStatus;
+  assigned_worker: string | null;
+  screening_outcome: ScreeningOutcome | null;
+  screening_notes: string | null;
+  verification_flag: string | null;
+  case_id: string | null;
+}

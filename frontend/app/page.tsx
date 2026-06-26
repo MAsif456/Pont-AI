@@ -19,8 +19,14 @@ export default function Home() {
       </p>
       <div className="flex flex-wrap gap-3">
         <Link
-          href="/intake"
+          href="/board"
           className="w-fit rounded-md bg-blue-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-blue-700"
+        >
+          Coordination board
+        </Link>
+        <Link
+          href="/intake"
+          className="w-fit rounded-md border border-gray-300 px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
         >
           Start a referral
         </Link>
@@ -28,7 +34,7 @@ export default function Home() {
           href="/cases"
           className="w-fit rounded-md border border-gray-300 px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
         >
-          View case dashboard
+          Case dashboard
         </Link>
       </div>
     </main>
