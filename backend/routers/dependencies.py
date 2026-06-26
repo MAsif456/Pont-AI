@@ -12,6 +12,7 @@ from agents.social_care_agent import SocialCareAgent
 from core.case_store import CaseStore
 from core.llm.base import LLMClient
 from core.llm.factory import build_llm_client
+from core.referral_store import ReferralStore
 from core.vector_store import VectorStore
 
 
@@ -37,3 +38,9 @@ def get_agent() -> SocialCareAgent:
 def get_case_store() -> CaseStore:
     """Return the process-wide case store."""
     return CaseStore()
+
+
+@lru_cache(maxsize=1)
+def get_referral_store() -> ReferralStore:
+    """Return the process-wide referral store."""
+    return ReferralStore()

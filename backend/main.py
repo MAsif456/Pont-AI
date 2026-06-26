@@ -11,7 +11,7 @@ from fastapi.responses import JSONResponse
 from google.genai import errors as genai_errors
 
 from config import get_settings
-from routers import agent, cases, extract, health, patients, report, upload
+from routers import agent, cases, extract, health, patients, referrals, report, upload
 
 settings = get_settings()
 
@@ -36,6 +36,7 @@ app.include_router(agent.router)
 app.include_router(report.router)
 app.include_router(upload.router)
 app.include_router(cases.router)
+app.include_router(referrals.router)
 
 
 @app.exception_handler(genai_errors.APIError)
