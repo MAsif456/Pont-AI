@@ -21,8 +21,10 @@ select = ["E", "F", "I", "B", "C4", "UP"]
 # that cannot be wrapped without changing their content.
 "agents/prompts.py" = ["E501"]
 "core/report_generator.py" = ["E501"]
+"core/screening.py" = ["E501"]
 "core/llm/mock/extract.py" = ["E501"]
 "core/llm/mock/agent.py" = ["E501"]
+"core/llm/mock/screening.py" = ["E501"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

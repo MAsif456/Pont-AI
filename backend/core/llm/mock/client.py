@@ -11,6 +11,7 @@ import re
 from .agent import handle_plan, handle_rank
 from .extract import handle_extract
 from .report import handle_report
+from .screening import handle_screen
 
 _TASK_PATTERN = re.compile(r"TASK:\s*([A-Z_]+)")
 _INPUT_MARKER = "INPUT:"
@@ -22,6 +23,7 @@ _HANDLERS = {
     "AGENT_PLAN": handle_plan,
     "RANK_REFERRALS": handle_rank,
     "GENERATE_REPORT": handle_report,
+    "SCREEN_REFERRAL": handle_screen,
 }
 
 
