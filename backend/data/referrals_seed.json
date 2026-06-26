@@ -1,0 +1,172 @@
+[
+  {
+    "referral_id": "RF-001",
+    "patient_id": "PT-001",
+    "patient_name": "Gwendoline Pritchard",
+    "source": "ward_nursing",
+    "reason_for_referral": "Lady with moderate dementia, recurrent falls and missed medication, needs support at home following discharge.",
+    "electronic_note": null,
+    "handover_note": null,
+    "days_ago": 0
+  },
+  {
+    "referral_id": "RF-002",
+    "patient_id": "PT-004",
+    "patient_name": "Trevor Llewellyn",
+    "source": "ward_nursing",
+    "reason_for_referral": "Referred following a fall; query whether mobility support is now needed at home.",
+    "electronic_note": "Mobilising independently around the ward, no mobility concerns documented.",
+    "handover_note": "Now using a walking frame following a fall last week; unsteady on his feet.",
+    "days_ago": 1
+  },
+  {
+    "referral_id": "RF-003",
+    "patient_id": "PT-006",
+    "patient_name": "Glyn Rees",
+    "source": "discharge_liaison",
+    "reason_for_referral": "Lewy body dementia, query night-time support needs and supervision at home.",
+    "electronic_note": "Sleeping through the night, settled overnight per nursing notes.",
+    "handover_note": "Family report he is up all night, wandering and distressed after dark.",
+    "days_ago": 3
+  },
+  {
+    "referral_id": "RF-004",
+    "patient_id": "PT-009",
+    "patient_name": "Olwen Davies",
+    "source": "ot",
+    "reason_for_referral": "Query around personal care needs at home and support for her husband.",
+    "electronic_note": "Independent with personal care, washing and dressing herself.",
+    "handover_note": "Needs help with washing and dressing since admission, per ward staff.",
+    "days_ago": 2
+  },
+  {
+    "referral_id": "RF-005",
+    "patient_id": "PT-010",
+    "patient_name": "Howard Pugh",
+    "source": "community_social_worker",
+    "reason_for_referral": "Concern about poor appetite and weight loss, query support needs at home.",
+    "electronic_note": "Eating well with a good appetite recorded at last review.",
+    "handover_note": "Poor appetite and noticeable weight loss reported by neighbour.",
+    "days_ago": 4
+  },
+  {
+    "referral_id": "RF-006",
+    "patient_id": "PT-003",
+    "patient_name": "Beryl Watkins",
+    "source": "discharge_liaison",
+    "reason_for_referral": "Severe dementia, medically ready for discharge but needs a care package and respite for the family.",
+    "electronic_note": null,
+    "handover_note": null,
+    "days_ago": 5
+  },
+  {
+    "referral_id": "RF-007",
+    "patient_id": "PT-007",
+    "patient_name": "Marian Hughes",
+    "source": "discharge_liaison",
+    "reason_for_referral": "Frail lady with severe dementia discharged with no care package; safeguarding concern, urgent response needed.",
+    "electronic_note": null,
+    "handover_note": null,
+    "days_ago": 1
+  },
+  {
+    "referral_id": "RF-008",
+    "patient_id": "PT-012",
+    "patient_name": "Emrys Thomas",
+    "source": "ot",
+    "reason_for_referral": "Post-stroke vascular dementia with mobility and manual handling needs; daughter struggling to cope.",
+    "electronic_note": null,
+    "handover_note": null,
+    "days_ago": 6
+  },
+  {
+    "referral_id": "RF-009",
+    "patient_id": "PT-002",
+    "patient_name": "Idris Hopkin",
+    "source": "ward_nursing",
+    "reason_for_referral": "Vascular dementia, wife exhausted, possible night wandering; needs respite and a needs assessment.",
+    "electronic_note": null,
+    "handover_note": null,
+    "days_ago": 2
+  },
+  {
+    "referral_id": "RF-010",
+    "patient_id": null,
+    "patient_name": "Brian Hopkins",
+    "source": "self_family",
+    "reason_for_referral": "Daughter asking for help applying for Attendance Allowance and other benefits for her father.",
+    "electronic_note": null,
+    "handover_note": null,
+    "days_ago": 2
+  },
+  {
+    "referral_id": "RF-011",
+    "patient_id": null,
+    "patient_name": "Margaret Lowe",
+    "source": "community_social_worker",
+    "reason_for_referral": "Request for a housing transfer and rehousing due to unsuitable stairs in the property.",
+    "electronic_note": null,
+    "handover_note": null,
+    "days_ago": 4
+  },
+  {
+    "referral_id": "RF-012",
+    "patient_id": null,
+    "patient_name": "Keith Probert",
+    "source": "self_family",
+    "reason_for_referral": "Enquiry about making a Blue Badge application for a relative.",
+    "electronic_note": null,
+    "handover_note": null,
+    "days_ago": 6
+  },
+  {
+    "referral_id": "RF-013",
+    "patient_id": null,
+    "patient_name": "Joan Fielding",
+    "source": "self_family",
+    "reason_for_referral": "Looking for help with council tax reduction and debt advice.",
+    "electronic_note": null,
+    "handover_note": null,
+    "days_ago": 3
+  },
+  {
+    "referral_id": "RF-014",
+    "patient_id": null,
+    "patient_name": "Susan Vaughan",
+    "source": "self_family",
+    "reason_for_referral": "General enquiry about what support services are available in the area.",
+    "electronic_note": null,
+    "handover_note": null,
+    "days_ago": 1
+  },
+  {
+    "referral_id": "RF-015",
+    "patient_id": null,
+    "patient_name": "Paul Sankey",
+    "source": "community_social_worker",
+    "reason_for_referral": "Just wondering what general advice you can give about caring for an elderly parent.",
+    "electronic_note": null,
+    "handover_note": null,
+    "days_ago": 5
+  },
+  {
+    "referral_id": "RF-016",
+    "patient_id": null,
+    "patient_name": "Eleanor Pask",
+    "source": "self_family",
+    "reason_for_referral": "Request for an information leaflet about local day centres.",
+    "electronic_note": null,
+    "handover_note": null,
+    "days_ago": 7
+  },
+  {
+    "referral_id": "RF-017",
+    "patient_id": null,
+    "patient_name": "Derek Salmon",
+    "source": "self_family",
+    "reason_for_referral": "Wanting general information about the Herbert Protocol.",
+    "electronic_note": null,
+    "handover_note": null,
+    "days_ago": 0
+  }
+]

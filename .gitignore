@@ -19,6 +19,9 @@ backend/data/chroma/
 # --- Runtime case store (generated as referrals are run) ---
 backend/data/cases.json
 
+# --- Runtime referral store (generated from referrals_seed.json) ---
+backend/data/referrals.json
+
 # --- Node / Next.js ---
 node_modules/
 .next/
