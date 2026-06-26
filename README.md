@@ -74,6 +74,14 @@ Set `NEXT_PUBLIC_API_BASE` if the backend is not on `http://localhost:8000`.
 | GET | `/cases/stats` | Team-level aggregate figures |
 | GET | `/cases/{id}` | One case with its full assessment history |
 | PATCH | `/cases/{id}/status` | Set the review status of a case's latest assessment |
+| POST | `/referrals` | Create a new referral (status `new`) |
+| GET | `/referrals` | List all referrals (coordination board) |
+| GET | `/referrals/caseload` | Open-referral counts per worker + least-loaded suggestion |
+| GET | `/referrals/{id}` | One referral |
+| POST | `/referrals/{id}/screen` | Bounded screening call: triage outcome + note cross-check |
+| POST | `/referrals/{id}/assign` | Claim a referral for a worker |
+| POST | `/referrals/{id}/complete` | Link the agent-generated case (→ `report_ready`) |
+| POST | `/referrals/{id}/approve` | Reflect report approval back onto the referral |
 
 ## Case dashboard & history
 
@@ -87,6 +95,20 @@ Pre-populate the dashboard for a demo (runs instantly in mock mode):
 ```bash
 cd backend
 python scripts/seed_cases.py     # seeds ~6 cases incl. one patient with a follow-up assessment
+```
+
+## Referral intake & coordination layer
+
+A coordination layer sits *in front of* the Social Care Agent, modelling how referrals actually arrive on the ward (multiple sources, currently a manual colour-coded spreadsheet). The existing agent is unchanged — it is now triggered by an *accepted* referral rather than a standalone "new assessment".
+
+- **Coordination board (`/board`)** — every incoming referral as a card, grouped into four colour-coded columns by status (Incoming → Active → Ready/Approved → Closed), replacing the spreadsheet. Each card shows source, reason, screening outcome, assigned worker, age, and a note-conflict warning where present.
+- **Screening** — a single, bounded LLM call (not agentic, no tools) triages each referral into **information only**, **redirect**, or **proportionate assessment**, and — where an electronic note and a paper/handover note both exist — cross-checks them and flags any factual disagreement (e.g. "electronic says independent mobility; handover says a walking frame is now used"). Info-only/redirect referrals close immediately; proportionate ones proceed.
+- **Referral detail (`/referrals/{id}`)** — screen → assign → **Run Social Care Agent** (calls the unchanged `/run-social-care-agent`, links the resulting case back, → `report_ready`) → approve (reflected onto the referral and the case).
+
+Seed the board for a demo (instant in mock mode):
+```bash
+cd backend
+python scripts/seed_referrals.py  # 17 referrals across all sources/outcomes, incl. 4 note conflicts
 ```
 
 ## Demo scenarios
