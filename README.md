@@ -82,6 +82,9 @@ Set `NEXT_PUBLIC_API_BASE` if the backend is not on `http://localhost:8000`.
 | POST | `/referrals/{id}/assign` | Claim a referral for a worker |
 | POST | `/referrals/{id}/complete` | Link the agent-generated case (→ `report_ready`) |
 | POST | `/referrals/{id}/approve` | Reflect report approval back onto the referral |
+| GET | `/clinical-updates/{patient_id}` | A patient's clinical context incl. update history |
+| POST | `/clinical-updates/{patient_id}` | Append a (simulated) incoming clinical update |
+| POST | `/referrals/{id}/reassess` | Bounded impact check of new clinical updates |
 
 ## Case dashboard & history
 
@@ -110,6 +113,16 @@ Seed the board for a demo (instant in mock mode):
 cd backend
 python scripts/seed_referrals.py  # 17 referrals across all sources/outcomes, incl. 4 note conflicts
 ```
+
+## Reactive reassessment on clinical updates
+
+Clinical updates (a nurse changing medication, an OT noting reduced mobility) are modelled as **externally-sourced** data arriving from the hospital side — not fields the social worker authors. The system can notice such a change and reason about whether it warrants re-assessing discharge readiness.
+
+- **Simulated, not monitored** — there is no webhook or polling. Updates are added via `POST /clinical-updates/{patient_id}` (UI: "Simulate incoming clinical update", limited to clinical roles), appended to the patient's history without overwriting the baseline snapshot.
+- **Bounded impact check** — `POST /referrals/{id}/reassess` runs `assess_update_impact` (a single LLM call, no tools, no loop) comparing what changed against the existing assessment. It returns a plain-language summary, whether discharge readiness is affected, and whether the recommendations still hold or should be re-generated. **If there are no new updates, it returns early without re-running the expensive pipeline.**
+- **Optional full re-run** — only when the impact check recommends it, a button re-triggers the **unchanged** `/run-social-care-agent` (which now sees the updated clinical context), adding a fresh assessment to the patient's case history.
+
+This appears on the referral detail view as a muted "Clinical updates" timeline (the same external-context styling used for the clinical/family panels), with the impact summary shown in the warning-card style used elsewhere.
 
 ## Demo scenarios
 
