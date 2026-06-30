@@ -10,6 +10,7 @@ from functools import lru_cache
 
 from agents.social_care_agent import SocialCareAgent
 from core.case_store import CaseStore
+from core.clinical_update_store import ClinicalUpdateStore
 from core.llm.base import LLMClient
 from core.llm.factory import build_llm_client
 from core.referral_store import ReferralStore
@@ -44,3 +45,9 @@ def get_case_store() -> CaseStore:
 def get_referral_store() -> ReferralStore:
     """Return the process-wide referral store."""
     return ReferralStore()
+
+
+@lru_cache(maxsize=1)
+def get_clinical_update_store() -> ClinicalUpdateStore:
+    """Return the process-wide clinical-update store."""
+    return ClinicalUpdateStore()
