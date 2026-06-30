@@ -8,9 +8,13 @@ agent happens client-side: the referral detail view calls the unchanged
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 
+from core.case_store import CaseStore
+from core.clinical_update_store import ClinicalUpdateStore
 from core.llm.base import LLMClient
-from core.referral_store import ReferralStore, build_referral
+from core.reassessment import assess_update_impact
+from core.referral_store import ReferralStore, build_referral, now_iso
 from core.screening import screen_referral
+from models.reassessment import ReassessmentRecord, ReassessResponse
 from models.referral_intake import (
     AssignReferralRequest,
     CompleteReferralRequest,
@@ -18,7 +22,12 @@ from models.referral_intake import (
     Referral,
 )
 
-from .dependencies import get_llm, get_referral_store
+from .dependencies import (
+    get_case_store,
+    get_clinical_update_store,
+    get_llm,
+    get_referral_store,
+)
 
 router = APIRouter(tags=["referrals"])
 
@@ -111,3 +120,55 @@ def approve(referral_id: str, store: ReferralStore = Depends(get_referral_store)
     """Reflect the report's approval back onto the referral."""
     _require(store.get(referral_id), referral_id)
     return store.approve(referral_id)
+
+
+@router.post("/referrals/{referral_id}/reassess", response_model=ReassessResponse)
+def reassess(
+    referral_id: str,
+    store: ReferralStore = Depends(get_referral_store),
+    cases: CaseStore = Depends(get_case_store),
+    clinical: ClinicalUpdateStore = Depends(get_clinical_update_store),
+    llm: LLMClient = Depends(get_llm),
+) -> ReassessResponse:
+    """Lightweight check of new clinical updates against the existing assessment.
+
+    Returns early without re-running anything when nothing has changed, so the
+    expensive agent pipeline is only re-run when warranted.
+    """
+    referral = _require(store.get(referral_id), referral_id)
+    if not referral.patient_id or not referral.case_id:
+        return ReassessResponse(
+            changed=False, message="No prior assessment to reassess against yet."
+        )
+
+    updates = clinical.updates_since(referral.patient_id, referral.clinical_reviewed_at)
+    if not updates:
+        return ReassessResponse(
+            changed=False, message="No new clinical updates since the last assessment."
+        )
+
+    impact = assess_update_impact(llm, _previous_summary(cases, referral.case_id), updates)
+    record = ReassessmentRecord(
+        reassessed_at=now_iso(),
+        update_ids=[update.update_id for update in updates],
+        summary=impact.summary,
+        affects_discharge=impact.affects_discharge,
+        discharge_impact=impact.discharge_impact,
+        recommend_rerun=impact.recommend_rerun,
+        recommendation_note=impact.recommendation_note,
+    )
+    store.add_reassessment(referral_id, record)
+    return ReassessResponse(changed=True, impact=record)
+
+
+def _previous_summary(cases: CaseStore, case_id: str) -> dict:
+    """Compact view of the existing assessment for the impact comparison."""
+    case = cases.get(case_id)
+    if case is None:
+        return {}
+    profile = case.latest.agent_result.needs_profile
+    return {
+        "needs_summary": profile.summary,
+        "key_risks": profile.key_risks,
+        "recommendations": [rec.name for rec in case.latest.agent_result.recommendations],
+    }

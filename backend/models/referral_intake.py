@@ -10,6 +10,8 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
+from .reassessment import ReassessmentRecord
+
 # Where a referral came from (mirrors the sources seen on the ward).
 ReferralSource = Literal[
     "ward_nursing", "ot", "discharge_liaison", "community_social_worker", "self_family"
@@ -49,6 +51,11 @@ class Referral(BaseModel):
     verification_flag: str | None = None
     # The case created when this referral is run through the Social Care Agent.
     case_id: str | None = None
+    # Clinical updates up to this timestamp have been reviewed; anything newer is
+    # an unreviewed incoming change.
+    clinical_reviewed_at: str | None = None
+    # History of impact assessments run against incoming clinical updates.
+    reassessments: list[ReassessmentRecord] = Field(default_factory=list)
 
 
 class ScreeningResult(BaseModel):

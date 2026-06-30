@@ -15,6 +15,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from config import get_settings
+from models.reassessment import ReassessmentRecord
 from models.referral_intake import Referral, ReferralStatus, ScreeningResult
 
 _LOCK = threading.Lock()
@@ -117,11 +118,22 @@ class ReferralStore:
         def update(referral: Referral) -> None:
             referral.case_id = case_id
             referral.status = "report_ready"
+            # The assessment now reflects clinical context as of this moment, so
+            # only later updates count as unreviewed.
+            referral.clinical_reviewed_at = now_iso()
 
         return self._mutate(referral_id, update)
 
     def approve(self, referral_id: str) -> Referral | None:
         return self._mutate(referral_id, lambda referral: setattr(referral, "status", "approved"))
+
+    def add_reassessment(self, referral_id: str, record: ReassessmentRecord) -> Referral | None:
+        """Append an impact assessment and mark clinical updates as reviewed."""
+        def update(referral: Referral) -> None:
+            referral.reassessments.append(record)
+            referral.clinical_reviewed_at = record.reassessed_at
+
+        return self._mutate(referral_id, update)
 
     def open_caseload(self) -> dict[str, int]:
         """Count open (live) referrals per assigned worker, for load balancing."""

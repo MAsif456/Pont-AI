@@ -10,6 +10,7 @@ import re
 
 from .agent import handle_plan, handle_rank
 from .extract import handle_extract
+from .reassessment import handle_impact
 from .report import handle_report
 from .screening import handle_screen
 
@@ -24,6 +25,7 @@ _HANDLERS = {
     "RANK_REFERRALS": handle_rank,
     "GENERATE_REPORT": handle_report,
     "SCREEN_REFERRAL": handle_screen,
+    "ASSESS_UPDATE_IMPACT": handle_impact,
 }
 
 
