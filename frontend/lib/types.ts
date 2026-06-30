@@ -17,12 +17,22 @@ export interface Discrepancy {
   description: string;
 }
 
+export interface ClinicalUpdate {
+  update_id: string;
+  timestamp: string;
+  field_changed: string;
+  previous_value: string;
+  new_value: string;
+  source: string;
+}
+
 export interface ClinicalContext {
   patient_id: string;
   diagnosis_summary: string;
   medication: string[];
   discharge_readiness_score: string;
   outstanding_clinical_tasks: string[];
+  clinical_updates: ClinicalUpdate[];
 }
 
 export interface FamilyContext {
@@ -162,6 +172,22 @@ export type ScreeningOutcome =
   | "redirect"
   | "proportionate_assessment";
 
+export interface ReassessmentRecord {
+  reassessed_at: string;
+  update_ids: string[];
+  summary: string;
+  affects_discharge: boolean;
+  discharge_impact: string;
+  recommend_rerun: boolean;
+  recommendation_note: string;
+}
+
+export interface ReassessResponse {
+  changed: boolean;
+  message: string;
+  impact: ReassessmentRecord | null;
+}
+
 export interface Referral {
   referral_id: string;
   patient_id: string | null;
@@ -177,4 +203,6 @@ export interface Referral {
   screening_notes: string | null;
   verification_flag: string | null;
   case_id: string | null;
+  clinical_reviewed_at: string | null;
+  reassessments: ReassessmentRecord[];
 }

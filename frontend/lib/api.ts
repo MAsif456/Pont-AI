@@ -6,8 +6,10 @@ import type {
   CaseStats,
   CaseStatus,
   CaseSummary,
+  ClinicalContext,
   PatientCase,
   PatientSummary,
+  ReassessResponse,
   Referral,
   ReferralReport,
   ReferralSource,
@@ -167,3 +169,33 @@ export const startReferral = (id: string) => jsonPost(`/referrals/${id}/start`);
 export const completeReferral = (id: string, caseId: string) =>
   jsonPost(`/referrals/${id}/complete`, { case_id: caseId });
 export const approveReferral = (id: string) => jsonPost(`/referrals/${id}/approve`);
+
+// --- Clinical updates & reassessment ---
+
+export function getClinicalContext(patientId: string): Promise<ClinicalContext> {
+  return request<ClinicalContext>(`/clinical-updates/${patientId}`);
+}
+
+export interface ClinicalUpdateBody {
+  field_changed: string;
+  new_value: string;
+  previous_value?: string;
+  source: string;
+}
+
+export function addClinicalUpdate(
+  patientId: string,
+  body: ClinicalUpdateBody,
+): Promise<ClinicalContext> {
+  return request<ClinicalContext>(`/clinical-updates/${patientId}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+}
+
+export function reassessReferral(referralId: string): Promise<ReassessResponse> {
+  return request<ReassessResponse>(`/referrals/${referralId}/reassess`, {
+    method: "POST",
+  });
+}

@@ -7,6 +7,7 @@ import { useCallback, useEffect, useState } from "react";
 import AgentProgress from "@/components/AgentProgress";
 import AssessmentView from "@/components/AssessmentView";
 import { ReferralStatusBadge } from "@/components/Badges";
+import ClinicalUpdatesPanel from "@/components/ClinicalUpdatesPanel";
 import VerificationFlag from "@/components/VerificationFlag";
 import {
   ApiError,
@@ -110,6 +111,12 @@ export default function ReferralDetailPage() {
           onApprove={approve}
         />
       </div>
+
+      {referral.case_id && referral.patient_id && (
+        <div className="mt-8">
+          <ClinicalUpdatesPanel referral={referral} onReviewed={() => load()} onRerun={runAgent} />
+        </div>
+      )}
 
       {caseData && (
         <div className="mt-8">
