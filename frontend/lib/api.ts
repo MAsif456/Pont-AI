@@ -3,6 +3,7 @@
 
 import type {
   AgentResult,
+  CarePlan,
   CaseStats,
   CaseStatus,
   CaseSummary,
@@ -197,5 +198,15 @@ export function addClinicalUpdate(
 export function reassessReferral(referralId: string): Promise<ReassessResponse> {
   return request<ReassessResponse>(`/referrals/${referralId}/reassess`, {
     method: "POST",
+  });
+}
+
+// --- Dynamic Care Plan (orchestration layer) ---
+
+export function getCarePlan(caseId: string): Promise<CarePlan> {
+  return request<CarePlan>("/care-plan", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ case_id: caseId }),
   });
 }

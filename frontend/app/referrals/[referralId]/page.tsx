@@ -7,6 +7,7 @@ import { useCallback, useEffect, useState } from "react";
 import AgentProgress from "@/components/AgentProgress";
 import AssessmentView from "@/components/AssessmentView";
 import { ReferralStatusBadge } from "@/components/Badges";
+import CarePlanView from "@/components/CarePlanView";
 import ClinicalUpdatesPanel from "@/components/ClinicalUpdatesPanel";
 import VerificationFlag from "@/components/VerificationFlag";
 import {
@@ -14,6 +15,7 @@ import {
   approveReferral,
   assignReferral,
   completeReferral,
+  getCarePlan,
   getCase,
   getReferral,
   screenReferral,
@@ -27,12 +29,13 @@ import {
   formatDateTime,
 } from "@/lib/format";
 import { runPipeline } from "@/lib/pipeline";
-import type { PatientCase, Referral } from "@/lib/types";
+import type { CarePlan, PatientCase, Referral } from "@/lib/types";
 
 export default function ReferralDetailPage() {
   const { referralId } = useParams<{ referralId: string }>();
   const [referral, setReferral] = useState<Referral | null>(null);
   const [caseData, setCaseData] = useState<PatientCase | null>(null);
+  const [carePlan, setCarePlan] = useState<CarePlan | null>(null);
   const [busy, setBusy] = useState<"screening" | "assigning" | "running" | "approving" | null>(null);
   const [worker, setWorker] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -40,7 +43,11 @@ export default function ReferralDetailPage() {
   const load = useCallback(async () => {
     const loaded = await getReferral(referralId);
     setReferral(loaded);
-    if (loaded.case_id) setCaseData(await getCase(loaded.case_id));
+    if (loaded.case_id) {
+      setCaseData(await getCase(loaded.case_id));
+      // Regenerated each load so a reassessment/re-run bumps the version.
+      setCarePlan(await getCarePlan(loaded.case_id));
+    }
   }, [referralId]);
 
   useEffect(() => {
@@ -111,6 +118,12 @@ export default function ReferralDetailPage() {
           onApprove={approve}
         />
       </div>
+
+      {carePlan && (
+        <div className="mt-8">
+          <CarePlanView plan={carePlan} />
+        </div>
+      )}
 
       {referral.case_id && referral.patient_id && (
         <div className="mt-8">

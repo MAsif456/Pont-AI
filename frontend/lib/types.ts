@@ -83,6 +83,25 @@ export interface ReferralReport {
   text_version: string;
 }
 
+export interface CrossDomainFlag {
+  description: string;
+  domains: string[];
+}
+
+export interface CarePlan {
+  patient_name: string;
+  generated_at: string;
+  version: number;
+  discharge_recommendation: string;
+  summary: string;
+  recommended_services: Recommendation[];
+  clinical_considerations: string[];
+  family_considerations: string[];
+  cross_domain_flags: CrossDomainFlag[];
+  human_review_statement: string;
+  text_version: string;
+}
+
 export interface PatientSummary {
   patient_id: string;
   name: string;
