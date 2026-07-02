@@ -9,6 +9,7 @@ import json
 import re
 
 from .agent import handle_plan, handle_rank
+from .care_plan import handle_care_plan
 from .extract import handle_extract
 from .reassessment import handle_impact
 from .report import handle_report
@@ -26,6 +27,7 @@ _HANDLERS = {
     "GENERATE_REPORT": handle_report,
     "SCREEN_REFERRAL": handle_screen,
     "ASSESS_UPDATE_IMPACT": handle_impact,
+    "SYNTHESISE_CARE_PLAN": handle_care_plan,
 }
 
 
