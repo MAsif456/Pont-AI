@@ -85,6 +85,7 @@ Set `NEXT_PUBLIC_API_BASE` if the backend is not on `http://localhost:8000`.
 | GET | `/clinical-updates/{patient_id}` | A patient's clinical context incl. update history |
 | POST | `/clinical-updates/{patient_id}` | Append a (simulated) incoming clinical update |
 | POST | `/referrals/{id}/reassess` | Bounded impact check of new clinical updates |
+| POST | `/care-plan` | Synthesise a Dynamic Care Plan for a case (reconciles all 3 domains) |
 
 ## Case dashboard & history
 
@@ -123,6 +124,14 @@ Clinical updates (a nurse changing medication, an OT noting reduced mobility) ar
 - **Optional full re-run** — only when the impact check recommends it, a button re-triggers the **unchanged** `/run-social-care-agent` (which now sees the updated clinical context), adding a fresh assessment to the patient's case history.
 
 This appears on the referral detail view as a muted "Clinical updates" timeline (the same external-context styling used for the clinical/family panels), with the impact summary shown in the warning-card style used elsewhere.
+
+## Dynamic Care Plan (orchestration layer)
+
+The headline output: `POST /care-plan {case_id}` runs a single bounded synthesis (`synthesise_care_plan`, one LLM call — no agent mesh) that **reconciles all three domains** — the Social Care Agent's assessment and recommendations, the clinical discharge-readiness/tasks/updates, and the family preferences/consent — into **one plan** with a clear discharge recommendation and explicit **cross-domain flags** (e.g. "clinical indicates readiness but no package is in place", "family prefers home care but a safety risk is flagged").
+
+It is **dynamic**: the plan is versioned by assessment count and fetches *fresh* clinical context, so when a nurse posts a clinical update → reassess → re-run, the plan visibly moves from e.g. "Ready for discharge" (v1) to "Discharge delayed pending a medication review" (v2). It renders as the prominent card at the top of the referral detail view.
+
+> **Architecture note:** the full three-agent mesh (autonomous Clinical/Family agents + A2A inter-agent messaging) is deliberately *not* built. Current evidence (Anthropic's multi-agent research; Cognition's "Don't build multi-agents"; the 2026 healthcare-AI ethics literature) shows multi-agent is a poor fit for shared-context reconciliation tasks like this one — it adds ~15× token cost, fragility, and accountability/opacity risks. A single well-orchestrated agent plus a bounded synthesis is the sound choice here.
 
 ## Demo scenarios
 
