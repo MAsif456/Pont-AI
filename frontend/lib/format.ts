@@ -1,6 +1,7 @@
 // Small display helpers shared across the case views.
 
 import type {
+  CaseloadStatus,
   CaseStatus,
   ReferralSource,
   ReferralStatus,
@@ -33,6 +34,13 @@ export const STATUS_LABEL: Record<CaseStatus, string> = {
   pending_review: "Pending review",
   approved: "Approved",
   changes_requested: "Changes requested",
+};
+
+export const CASELOAD_STATUS_LABEL: Record<CaseloadStatus, string> = {
+  draft: "Draft",
+  in_progress: "In Progress",
+  pending_review: "Pending Review",
+  referred: "Referred",
 };
 
 export const REFERRAL_STATUS_LABEL: Record<ReferralStatus, string> = {

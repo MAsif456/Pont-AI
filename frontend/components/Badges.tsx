@@ -1,5 +1,5 @@
-import type { CaseStatus, Confidence, ReferralStatus } from "@/lib/types";
-import { REFERRAL_STATUS_LABEL, STATUS_LABEL } from "@/lib/format";
+import type { CaseloadStatus, CaseStatus, Confidence, ReferralStatus } from "@/lib/types";
+import { CASELOAD_STATUS_LABEL, REFERRAL_STATUS_LABEL, STATUS_LABEL } from "@/lib/format";
 
 const STATUS_STYLE: Record<CaseStatus, string> = {
   pending_review: "bg-amber-100 text-amber-800",
@@ -44,6 +44,53 @@ export function ReferralStatusBadge({ status }: { status: ReferralStatus }) {
   return (
     <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${REFERRAL_STATUS_STYLE[status]}`}>
       {REFERRAL_STATUS_LABEL[status]}
+    </span>
+  );
+}
+
+const CASELOAD_STATUS_STYLE: Record<CaseloadStatus, string> = {
+  draft: "bg-gray-100 text-gray-600",
+  in_progress: "bg-blue-100 text-blue-700",
+  pending_review: "bg-amber-100 text-amber-800",
+  referred: "bg-green-100 text-green-700",
+};
+
+export function CaseloadStatusBadge({ status }: { status: CaseloadStatus }) {
+  return (
+    <span
+      className={`rounded-full border px-2.5 py-1 text-xs font-medium ${CASELOAD_STATUS_STYLE[status]} border-transparent`}
+    >
+      {CASELOAD_STATUS_LABEL[status]}
+    </span>
+  );
+}
+
+const STAGE_STYLE: Record<string, string> = {
+  mild: "bg-green-100 text-green-700",
+  moderate: "bg-amber-100 text-amber-800",
+  severe: "bg-red-100 text-red-700",
+};
+
+export function StageBadge({ stage }: { stage: string }) {
+  if (!stage) return <span className="text-gray-300">—</span>;
+  const style = STAGE_STYLE[stage.toLowerCase()] ?? "bg-gray-100 text-gray-600";
+  return (
+    <span className={`rounded-full px-2.5 py-1 text-xs font-medium capitalize ${style}`}>
+      {stage}
+    </span>
+  );
+}
+
+export function Avatar({ name }: { name: string }) {
+  const initials = name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase())
+    .join("");
+  return (
+    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100 text-xs font-semibold text-blue-700">
+      {initials || "?"}
     </span>
   );
 }

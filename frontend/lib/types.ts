@@ -102,6 +102,22 @@ export interface CarePlan {
   text_version: string;
 }
 
+export type CaseloadStatus = "draft" | "in_progress" | "pending_review" | "referred";
+
+export interface CaseloadRow {
+  patient_id: string;
+  name: string;
+  age: number | null;
+  postcode_area: string;
+  dementia_type: string;
+  diagnosis_stage: string;
+  status: CaseloadStatus;
+  updated_at: string;
+  flagged: boolean;
+  case_id: string | null;
+  referral_id: string | null;
+}
+
 export interface StaffInteraction {
   interaction_id: string;
   patient_id: string;

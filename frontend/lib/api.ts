@@ -4,6 +4,7 @@
 import type {
   AgentResult,
   CarePlan,
+  CaseloadRow,
   CaseStats,
   CaseStatus,
   CaseSummary,
@@ -113,6 +114,10 @@ export function createCase(
 
 export function listCases(): Promise<CaseSummary[]> {
   return request<CaseSummary[]>("/cases");
+}
+
+export function getCaseload(): Promise<CaseloadRow[]> {
+  return request<CaseloadRow[]>("/caseload");
 }
 
 export function getCaseStats(): Promise<CaseStats> {
