@@ -22,6 +22,9 @@ backend/data/cases.json
 # --- Runtime referral store (generated from referrals_seed.json) ---
 backend/data/referrals.json
 
+# --- Runtime staff-interaction store ---
+backend/data/interactions.json
+
 # --- Node / Next.js ---
 node_modules/
 .next/

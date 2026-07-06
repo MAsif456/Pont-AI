@@ -18,6 +18,7 @@ from routers import (
     clinical,
     extract,
     health,
+    interactions,
     patients,
     referrals,
     report,
@@ -50,6 +51,7 @@ app.include_router(cases.router)
 app.include_router(referrals.router)
 app.include_router(clinical.router)
 app.include_router(care_plan.router)
+app.include_router(interactions.router)
 
 
 @app.exception_handler(genai_errors.APIError)
