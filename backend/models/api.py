@@ -1,5 +1,7 @@
 """Request and response DTOs for the public API endpoints."""
 
+from typing import Literal
+
 from pydantic import BaseModel, Field
 
 from .case import CaseStatus
@@ -7,6 +9,9 @@ from .needs import NeedsResult
 from .patient import PatientIntake, SourceNoteInput
 from .referral import AgentResult
 from .report import ReferralReport
+
+# Patient-level workflow status shown on the dashboard caseload.
+CaseloadStatus = Literal["draft", "in_progress", "pending_review", "referred"]
 
 
 class ExtractNeedsRequest(BaseModel):
@@ -51,6 +56,23 @@ class PatientSummary(BaseModel):
     postcode_area: str = ""
     dementia_type: str = ""
     diagnosis_stage: str = ""
+
+
+class CaseloadRow(BaseModel):
+    """One patient on the dashboard caseload, with derived workflow status."""
+
+    patient_id: str
+    name: str
+    age: int | None = None
+    postcode_area: str = ""
+    dementia_type: str = ""
+    diagnosis_stage: str = ""
+    status: CaseloadStatus = "draft"
+    updated_at: str = ""
+    # A discrepancy or note conflict is on record for this patient.
+    flagged: bool = False
+    case_id: str | None = None
+    referral_id: str | None = None
 
 
 class UploadDocumentResponse(BaseModel):
