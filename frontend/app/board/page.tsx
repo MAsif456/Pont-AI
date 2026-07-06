@@ -117,6 +117,10 @@ export default function BoardPage() {
   );
 }
 
+// How many open cards a column shows before a "Show more" expander, so busy
+// columns don't force the whole board to scroll.
+const COLUMN_PAGE_SIZE = 6;
+
 function Column({
   column,
   items,
@@ -124,21 +128,32 @@ function Column({
   column: (typeof COLUMNS)[number];
   items: Referral[];
 }) {
+  const [expanded, setExpanded] = useState(false);
   const closed = items.filter((r) => r.status.startsWith("closed_"));
   const open = items.filter((r) => !r.status.startsWith("closed_"));
+  const visible = expanded ? open : open.slice(0, COLUMN_PAGE_SIZE);
+  const hidden = open.length - visible.length;
   return (
-    <div className={`rounded-lg border-t-4 bg-gray-50 p-3 ${column.border}`}>
+    <div className={`rounded-lg border-t-4 bg-white p-3 ${column.border}`}>
       <h2 className="mb-3 flex items-center justify-between text-sm font-semibold text-gray-700">
         <span className="flex items-center gap-2">
           <span className={`h-2 w-2 rounded-full ${column.dot}`} />
           {column.title}
         </span>
-        <span className="rounded-full bg-white px-2 py-0.5 text-xs text-gray-500">{items.length}</span>
+        <span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-500">{items.length}</span>
       </h2>
       <div className="flex flex-col gap-3">
-        {open.map((referral) => (
+        {visible.map((referral) => (
           <ReferralBoardCard key={referral.referral_id} referral={referral} />
         ))}
+        {(hidden > 0 || (expanded && open.length > COLUMN_PAGE_SIZE)) && (
+          <button
+            onClick={() => setExpanded((current) => !current)}
+            className="rounded-md border border-gray-200 bg-white py-1.5 text-xs font-medium text-blue-600 transition hover:bg-blue-50"
+          >
+            {hidden > 0 ? `Show ${hidden} more` : "Show less"}
+          </button>
+        )}
         {closed.length > 0 && (
           <details>
             <summary className="cursor-pointer text-xs text-gray-500">{closed.length} closed</summary>
