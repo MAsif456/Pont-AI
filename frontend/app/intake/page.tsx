@@ -1,28 +1,21 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { useState } from "react";
 
 import AgentProgress from "@/components/AgentProgress";
-import DemoPicker from "@/components/DemoPicker";
+import DomainBar from "@/components/DomainBar";
 import IntakeForm from "@/components/IntakeForm";
 import PdfUpload from "@/components/PdfUpload";
 import { ApiError, uploadDocument, type RunAgentRequest } from "@/lib/api";
 import { runPipeline } from "@/lib/pipeline";
 import { saveResult } from "@/lib/storage";
 
-type Tab = "demo" | "form" | "upload";
-
-const TABS: { id: Tab; label: string }[] = [
-  { id: "demo", label: "Demo patient" },
-  { id: "form", label: "Manual form" },
-  { id: "upload", label: "Upload PDF" },
-];
+type Tab = "form" | "upload";
 
 export default function IntakePage() {
   const router = useRouter();
-  const [tab, setTab] = useState<Tab>("demo");
+  const [tab, setTab] = useState<Tab>("form");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -57,51 +50,51 @@ export default function IntakePage() {
     }
   }
 
-  if (loading) {
-    return (
-      <main className="mx-auto max-w-2xl p-8">
-        <AgentProgress />
-      </main>
-    );
-  }
-
   return (
-    <main className="mx-auto max-w-3xl p-8">
-      <Link href="/" className="text-sm text-blue-600 hover:underline">
-        ← Home
-      </Link>
-      <h1 className="mt-2 text-3xl font-bold tracking-tight">New referral</h1>
-      <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-        Choose how to provide the patient assessment.
-      </p>
+    <>
+      <DomainBar />
+      <main className="mx-auto max-w-3xl p-8">
+        {loading ? (
+          <AgentProgress />
+        ) : (
+          <>
+            <h1 className="text-2xl font-bold tracking-tight">New Patient Assessment</h1>
+            <p className="mt-1 text-sm text-gray-500">
+              Complete the intake form to begin the automated referral process.
+            </p>
 
-      <div className="mt-6 flex gap-2 border-b border-gray-200 dark:border-gray-700">
-        {TABS.map((item) => (
-          <button
-            key={item.id}
-            onClick={() => setTab(item.id)}
-            className={`-mb-px border-b-2 px-4 py-2 text-sm font-medium transition ${
-              tab === item.id
-                ? "border-blue-600 text-blue-600"
-                : "border-transparent text-gray-500 hover:text-gray-700"
-            }`}
-          >
-            {item.label}
-          </button>
-        ))}
-      </div>
+            <div className="mt-6 inline-flex rounded-md border border-gray-200 bg-white p-1">
+              <TabButton active={tab === "form"} onClick={() => setTab("form")}>Manual Entry</TabButton>
+              <TabButton active={tab === "upload"} onClick={() => setTab("upload")}>Upload Document</TabButton>
+            </div>
 
-      {error && (
-        <p className="mt-4 rounded-md bg-red-50 p-3 text-sm text-red-700 dark:bg-red-950 dark:text-red-300">
-          {error}
-        </p>
-      )}
+            {error && (
+              <p className="mt-4 rounded-md bg-red-50 p-3 text-sm text-red-700">{error}</p>
+            )}
 
-      <div className="mt-6">
-        {tab === "demo" && <DemoPicker onRun={run} disabled={loading} />}
-        {tab === "form" && <IntakeForm onRun={run} disabled={loading} />}
-        {tab === "upload" && <PdfUpload onRunPdf={runPdf} disabled={loading} />}
-      </div>
-    </main>
+            <div className="mt-6">
+              {tab === "form" ? (
+                <IntakeForm onRun={run} disabled={loading} />
+              ) : (
+                <PdfUpload onRunPdf={runPdf} disabled={loading} />
+              )}
+            </div>
+          </>
+        )}
+      </main>
+    </>
+  );
+}
+
+function TabButton({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
+  return (
+    <button
+      onClick={onClick}
+      className={`rounded px-4 py-1.5 text-sm font-medium transition ${
+        active ? "bg-blue-50 text-blue-700" : "text-gray-500 hover:text-gray-700"
+      }`}
+    >
+      {children}
+    </button>
   );
 }
