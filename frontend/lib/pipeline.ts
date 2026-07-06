@@ -24,5 +24,11 @@ export async function runPipeline(
     report,
   });
 
-  return { agent, report, patientName: request.patient_name, caseId: case_id };
+  return {
+    agent,
+    report,
+    patientName: request.patient_name,
+    caseId: case_id,
+    patientData: request.patient_data,
+  };
 }

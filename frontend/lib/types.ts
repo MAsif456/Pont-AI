@@ -159,6 +159,7 @@ export interface PipelineResult {
   report: ReferralReport;
   patientName?: string;
   caseId?: string;
+  patientData?: Record<string, unknown>;
 }
 
 export type CaseStatus = "pending_review" | "approved" | "changes_requested";
