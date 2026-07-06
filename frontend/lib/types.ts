@@ -102,6 +102,27 @@ export interface CarePlan {
   text_version: string;
 }
 
+export interface StaffInteraction {
+  interaction_id: string;
+  patient_id: string;
+  actor_role: string;
+  note: string;
+  timestamp: string;
+  channel: string;
+}
+
+export interface ActorCount {
+  role: string;
+  count: number;
+}
+
+export interface InteractionSummary {
+  patient_id: string;
+  total: number;
+  by_actor: ActorCount[];
+  interactions: StaffInteraction[];
+}
+
 export interface PatientSummary {
   patient_id: string;
   name: string;

@@ -9,6 +9,7 @@ import AssessmentView from "@/components/AssessmentView";
 import { ReferralStatusBadge } from "@/components/Badges";
 import CarePlanView from "@/components/CarePlanView";
 import ClinicalUpdatesPanel from "@/components/ClinicalUpdatesPanel";
+import StaffInteractionsPanel from "@/components/StaffInteractionsPanel";
 import VerificationFlag from "@/components/VerificationFlag";
 import {
   ApiError,
@@ -122,6 +123,12 @@ export default function ReferralDetailPage() {
       {carePlan && (
         <div className="mt-8">
           <CarePlanView plan={carePlan} />
+        </div>
+      )}
+
+      {referral.patient_id && (
+        <div className="mt-8">
+          <StaffInteractionsPanel patientId={referral.patient_id} />
         </div>
       )}
 

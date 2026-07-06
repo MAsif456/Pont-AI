@@ -8,6 +8,7 @@ import type {
   CaseStatus,
   CaseSummary,
   ClinicalContext,
+  InteractionSummary,
   PatientCase,
   PatientSummary,
   ReassessResponse,
@@ -15,6 +16,7 @@ import type {
   ReferralReport,
   ReferralSource,
   SourceNoteInput,
+  StaffInteraction,
 } from "./types";
 
 const API_BASE =
@@ -208,5 +210,23 @@ export function getCarePlan(caseId: string): Promise<CarePlan> {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ case_id: caseId }),
+  });
+}
+
+// --- Staff interactions (per-actor analytics + role-attributed notes) ---
+
+export function getInteractions(patientId: string): Promise<InteractionSummary> {
+  return request<InteractionSummary>(`/patients/${patientId}/interactions`);
+}
+
+export function logInteraction(
+  patientId: string,
+  actorRole: string,
+  note: string,
+): Promise<StaffInteraction> {
+  return request<StaffInteraction>(`/patients/${patientId}/interactions`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ actor_role: actorRole, note }),
   });
 }
