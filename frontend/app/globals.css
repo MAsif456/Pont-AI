@@ -1,25 +1,52 @@
 @import "tailwindcss";
 
-/* Force an always-light theme: white background, black text. The `dark:` variant
-   is redefined to be class-based (.dark ancestor) rather than following the OS
-   preference, so the dark: utilities used throughout the components never
-   activate unless a .dark class is explicitly added (which it never is). */
+/* Force an always-light theme: the `dark:` variant is redefined to be class-based
+   (.dark ancestor) rather than following the OS preference, so the dark: utilities
+   used throughout the components never activate unless a .dark class is explicitly
+   added (which it never is). */
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Surfaces and text — NHS-aligned palette from the Figma design. */
+  --background: #f4f6f8;
+  --foreground: #212b36;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  /* Remap the blue scale the components already use onto the NHS brand blues,
+     so every `bg-blue-600`, `text-blue-600`, etc. picks up the design palette
+     without touching each component. */
+  --color-blue-50: #e8f0f9;
+  --color-blue-100: #cfe0f2;
+  --color-blue-200: #a9c8e6;
+  --color-blue-300: #7aa9d6;
+  --color-blue-400: #4c8fca;
+  --color-blue-500: #0072ce;
+  --color-blue-600: #005eb8;
+  --color-blue-700: #003087;
+  --color-blue-800: #002766;
+  --color-blue-900: #001f52;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+/* Headings use the display face (Outfit) from the design. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
 }

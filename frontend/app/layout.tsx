@@ -1,16 +1,26 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Outfit, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import AppNav from "@/components/AppNav";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Typefaces from the Figma design: Outfit for headings, Inter for body,
+// JetBrains Mono for references/codes.
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -31,11 +41,11 @@ export default function RootLayout({
       // React hydrates, causing a benign hydration mismatch. Suppressing the
       // warning here is the documented fix for extension-injected attributes.
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${outfit.variable} ${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full">
         <AppNav />
-        <div className="min-h-[calc(100vh-4rem)] bg-gray-50">{children}</div>
+        <div className="min-h-[calc(100vh-4rem)] bg-background">{children}</div>
       </body>
     </html>
   );
