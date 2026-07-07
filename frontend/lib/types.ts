@@ -3,6 +3,17 @@
 
 export type Confidence = "high" | "medium" | "low";
 
+export interface PatientDetails {
+  name: string;
+  age: string;
+  postcode_area: string;
+  dementia_type: string;
+  diagnosis_stage: string;
+  living_situation: string;
+  carer_present: string;
+  mobility: string;
+}
+
 export interface NeedsProfile {
   dementia_stage: string;
   mobility_needs: string;
@@ -10,6 +21,7 @@ export interface NeedsProfile {
   carer_status: string;
   key_risks: string[];
   summary: string;
+  patient_details: PatientDetails;
 }
 
 export interface Discrepancy {
@@ -50,6 +62,8 @@ export interface Recommendation {
   justification: string;
   confidence: Confidence;
   recommended_for_human_review: boolean;
+  phone: string;
+  address: string;
 }
 
 export interface ReasoningStep {

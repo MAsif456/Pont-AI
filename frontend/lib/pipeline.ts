@@ -13,9 +13,19 @@ export async function runPipeline(
   request: RunAgentRequest,
 ): Promise<PipelineResult> {
   const agent = await runSocialCareAgent(request);
-  const report = await generateReport(agent, request.patient_name);
+
+  // When details were not supplied (e.g. a PDF upload), fall back to what the
+  // agent read out of the document so the report is populated either way.
+  const details = agent.needs_profile.patient_details;
   const patientName =
-    request.patient_name || agent.patient_id || "Unnamed patient";
+    request.patient_name?.trim() ||
+    details?.name?.trim() ||
+    agent.patient_id ||
+    "Unnamed patient";
+  const patientData =
+    request.patient_data ?? (details as unknown as Record<string, unknown>);
+
+  const report = await generateReport(agent, patientName);
 
   const { case_id } = await createCase({
     patient_id: request.patient_id ?? null,
@@ -27,8 +37,8 @@ export async function runPipeline(
   return {
     agent,
     report,
-    patientName: request.patient_name,
+    patientName,
     caseId: case_id,
-    patientData: request.patient_data,
+    patientData,
   };
 }

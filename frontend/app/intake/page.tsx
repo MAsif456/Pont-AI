@@ -39,10 +39,11 @@ export default function IntakePage() {
       if (!upload.raw_text.trim()) {
         throw new ApiError("No readable text could be extracted from that PDF.");
       }
+      // The patient's name is read from the document itself (see runPipeline),
+      // not the file name, which is often something like "scan (1).pdf".
       await run({
         raw_text: upload.raw_text,
-        source_notes: [{ source: "Referral letter (PDF)", text: upload.raw_text }],
-        patient_name: file.name.replace(/\.pdf$/i, ""),
+        source_notes: [{ source: "Uploaded assessment (PDF)", text: upload.raw_text }],
       });
     } catch (caught) {
       setError(caught instanceof ApiError ? caught.message : "Could not process that PDF.");
