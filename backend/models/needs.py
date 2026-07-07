@@ -14,6 +14,23 @@ class Discrepancy(BaseModel):
     )
 
 
+class PatientDetails(BaseModel):
+    """Identity and demographic fields read from the referral/assessment document.
+
+    These populate the patient summary on the report. Every field defaults to an
+    empty string so a partially-filled form never breaks extraction.
+    """
+
+    name: str = ""
+    age: str = ""
+    postcode_area: str = ""
+    dementia_type: str = ""
+    diagnosis_stage: str = ""
+    living_situation: str = ""
+    carer_present: str = ""
+    mobility: str = ""
+
+
 class NeedsProfile(BaseModel):
     """The structured needs profile extracted from patient input."""
 
@@ -23,6 +40,7 @@ class NeedsProfile(BaseModel):
     carer_status: str = ""
     key_risks: list[str] = Field(default_factory=list)
     summary: str = ""
+    patient_details: PatientDetails = Field(default_factory=PatientDetails)
 
 
 class NeedsResult(BaseModel):

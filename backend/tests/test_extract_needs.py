@@ -46,3 +46,20 @@ def test_personal_care_conflict_named(mock_llm):
 def test_single_source_yields_no_discrepancy(mock_llm):
     notes = [SourceNoteInput(source="Family", text="needs help washing and dressing")]
     assert extract_needs(mock_llm, source_notes=notes).discrepancies == []
+
+
+def test_patient_details_extracted_from_structured_fields(mock_llm):
+    """Structured intake fields flow through into the patient_details summary."""
+    patient_data = {
+        "name": "Margaret Thompson",
+        "age": 78,
+        "postcode_area": "LS8",
+        "dementia_type": "Alzheimer's",
+        "carer_present": False,
+    }
+    details = extract_needs(mock_llm, patient_data=patient_data).profile.patient_details
+    assert details.name == "Margaret Thompson"
+    assert details.age == "78"
+    assert details.postcode_area == "LS8"
+    assert details.dementia_type == "Alzheimer's"
+    assert details.carer_present == "No"

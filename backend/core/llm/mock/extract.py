@@ -52,7 +52,28 @@ def handle_extract(payload: dict) -> dict:
         "carer_status": _carer(structured, combined),
         "key_risks": _risks(combined),
         "summary": _summary(structured, combined),
+        "patient_details": _patient_details(structured, combined),
         "discrepancies": _discrepancies(sources),
+    }
+
+
+def _patient_details(structured: dict, text: str) -> dict:
+    """Build the identity/demographic summary from structured fields and text.
+
+    Mirrors the live extractor's ``patient_details`` shape. Structured intake
+    fields win; the free text only fills gaps so an uploaded document still
+    yields a usable summary in mock mode.
+    """
+    carer = _carer(structured, text)
+    return {
+        "name": str(structured.get("name", "")),
+        "age": str(structured.get("age", "")),
+        "postcode_area": str(structured.get("postcode_area", "")),
+        "dementia_type": str(structured.get("dementia_type", "")),
+        "diagnosis_stage": _stage(structured, text),
+        "living_situation": _living(structured, text),
+        "carer_present": "Yes" if carer == "carer present" else "No" if carer == "no carer present" else "",
+        "mobility": _mobility(structured, text),
     }
 
 
