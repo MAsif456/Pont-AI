@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import DomainBar from "@/components/DomainBar";
+import EditablePatientSummary from "@/components/EditablePatientSummary";
 import ReasoningTrail from "@/components/ReasoningTrail";
 import RelatedContextPanel from "@/components/RelatedContextPanel";
 import ServiceSelectCard from "@/components/ServiceSelectCard";
@@ -76,6 +77,10 @@ export default function ResultsPage() {
           <span className="rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-700">
             Assessment complete
           </span>
+        </div>
+
+        <div className="mt-6">
+          <EditablePatientSummary patientName={patientName} patientData={patientData} />
         </div>
 
         {agent.discrepancies.length > 0 && (
