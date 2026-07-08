@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { ConfidenceBadge } from "@/components/Badges";
+import ServiceContact from "@/components/ServiceContact";
 import type { Recommendation } from "@/lib/types";
 
 // A recommended service that can be included/excluded from the referral (the
@@ -57,6 +58,7 @@ export default function ServiceSelectCard({
               </button>
             </div>
           </div>
+          <ServiceContact phone={recommendation.phone} address={recommendation.address} />
           {open && (
             <p className="mt-2 text-sm text-gray-600">{recommendation.justification}</p>
           )}

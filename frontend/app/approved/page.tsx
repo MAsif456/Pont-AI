@@ -51,7 +51,10 @@ export default function ApprovedPage() {
                 <span className="mt-0.5 text-green-600">✓</span>
                 <span>
                   <span className="font-medium text-gray-800">{service.name}</span>
-                  <span className="block text-xs text-gray-400">{service.category}</span>
+                  <span className="block text-xs text-gray-400">
+                    {service.category}
+                    {service.phone && ` · ${service.phone}`}
+                  </span>
                 </span>
               </li>
             ))}

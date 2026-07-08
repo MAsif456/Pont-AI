@@ -1,3 +1,4 @@
+import ServiceContact from "@/components/ServiceContact";
 import type { Confidence, Recommendation } from "@/lib/types";
 
 const CONFIDENCE_STYLE: Record<Confidence, string> = {
@@ -25,6 +26,7 @@ export default function ReferralCard({ recommendation }: { recommendation: Recom
       <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
         {recommendation.justification}
       </p>
+      <ServiceContact phone={recommendation.phone} address={recommendation.address} />
       {recommendation.recommended_for_human_review && (
         <p className="mt-2 text-xs font-medium text-red-600">
           ⚑ Recommended for human review
