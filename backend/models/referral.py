@@ -22,6 +22,9 @@ class Recommendation(BaseModel):
     # Low-confidence matches must be surfaced for a human rather than presented
     # as a confident pick, per the human-in-the-loop requirement.
     recommended_for_human_review: bool = False
+    # Contact details, enriched from the service directory (not model-generated).
+    phone: str = ""
+    address: str = ""
 
 
 class ReasoningStep(BaseModel):

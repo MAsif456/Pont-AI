@@ -14,6 +14,8 @@ class Service(BaseModel):
     postcode_coverage: list[str] = Field(default_factory=list)
     referral_process: str = ""
     capacity_notes: str = ""
+    phone: str = ""
+    address: str = ""
 
     def embedding_text(self) -> str:
         """Text used to embed this service for retrieval.

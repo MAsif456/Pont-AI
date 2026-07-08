@@ -26,7 +26,9 @@ def rank_candidates(
     payload = _rank_payload(profile, discrepancies, candidates, clinical, family)
     result = generate_json(llm, build_rank_prompt(payload))
     raw = result.get("recommendations", []) if isinstance(result, dict) else []
-    return [_to_recommendation(item, index) for index, item in enumerate(raw)]
+    # Contact details are enriched from the retrieved services, never generated.
+    services = {hit.service.service_id: hit.service for hit in candidates}
+    return [_to_recommendation(item, index, services) for index, item in enumerate(raw)]
 
 
 def _rank_payload(profile, discrepancies, candidates, clinical, family) -> dict:
@@ -50,11 +52,12 @@ def _rank_payload(profile, discrepancies, candidates, clinical, family) -> dict:
     }
 
 
-def _to_recommendation(item: dict, index: int) -> Recommendation:
+def _to_recommendation(item: dict, index: int, services: dict) -> Recommendation:
     """Validate one raw recommendation, defaulting confidence and review flags."""
     confidence = str(item.get("confidence", "medium")).lower()
     if confidence not in _VALID_CONFIDENCE:
         confidence = "medium"
+    service = services.get(str(item.get("service_id", "")))
     return Recommendation(
         service_id=str(item.get("service_id", "")),
         name=str(item.get("name", "")),
@@ -65,4 +68,6 @@ def _to_recommendation(item: dict, index: int) -> Recommendation:
         # Trust an explicit flag, but always force it on for low confidence.
         recommended_for_human_review=bool(item.get("recommended_for_human_review", False))
         or confidence == "low",
+        phone=service.phone if service else "",
+        address=service.address if service else "",
     )

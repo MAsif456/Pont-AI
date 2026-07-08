@@ -12,8 +12,18 @@ def _candidate(service_id: str, distance: float) -> RetrievedService:
         category="home care",
         description="A description. With detail.",
         eligibility_criteria="Adults with dementia.",
+        phone="029 2000 0000",
+        address="1 Test Street, Cardiff CF10 1AA",
     )
     return RetrievedService(service=service, distance=distance)
+
+
+def test_recommendations_are_enriched_with_contacts(mock_llm):
+    recommendations = rank_candidates(
+        mock_llm, NeedsProfile(dementia_stage="mild"), [], [_candidate("SVC-1", 0.2)], None, None,
+    )
+    assert recommendations[0].phone == "029 2000 0000"
+    assert "Cardiff" in recommendations[0].address
 
 
 def test_low_confidence_is_flagged_for_review(mock_llm):
