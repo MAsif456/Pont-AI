@@ -7,14 +7,14 @@ export default function RecommendationList({
   recommendations: Recommendation[];
 }) {
   return (
-    <section>
-      <h2 className="mb-3 text-lg font-semibold">
-        Ranked referral recommendations
+    <section className="rounded-lg border border-gray-200 bg-white p-5">
+      <h2 className="text-xs font-semibold uppercase tracking-wide text-gray-400">
+        Recommended services
         {recommendations.length === 0 && (
-          <span className="ml-2 text-sm font-normal text-gray-400">— none identified</span>
+          <span className="ml-2 font-normal normal-case text-gray-400">— none identified</span>
         )}
       </h2>
-      <div className="flex flex-col gap-3">
+      <div className="mt-4 flex flex-col divide-y divide-gray-100">
         {recommendations.map((recommendation) => (
           <ReferralCard key={recommendation.service_id} recommendation={recommendation} />
         ))}

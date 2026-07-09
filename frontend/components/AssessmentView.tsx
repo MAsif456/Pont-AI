@@ -12,12 +12,12 @@ export default function AssessmentView({ assessment }: { assessment: StoredAsses
   const result = assessment.agent_result;
   return (
     <div className="flex flex-col gap-6">
-      <DiscrepancyAlert discrepancies={result.discrepancies} />
       <NeedsProfileView profile={result.needs_profile} />
+      <DiscrepancyAlert discrepancies={result.discrepancies} />
       <RelatedContextPanel clinical={result.clinical_context} family={result.family_context} />
       <RecommendationList recommendations={result.recommendations} />
-      <ReasoningTrail steps={result.reasoning_trail} toolCalls={result.tool_calls_used} />
       <ReportView report={assessment.report} />
+      <ReasoningTrail steps={result.reasoning_trail} toolCalls={result.tool_calls_used} />
     </div>
   );
 }
