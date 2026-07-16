@@ -58,16 +58,21 @@ export default function StaffInteractionsPanel({ patientId }: { patientId: strin
   const maxCount = Math.max(1, ...(summary?.by_actor.map((a) => a.count) ?? [1]));
 
   return (
-    <section className="rounded-lg border border-gray-200 p-5">
-      <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold">Staff interactions</h2>
+    <section className="rounded-lg border border-gray-200 bg-white p-5">
+      <div className="flex items-start justify-between">
+        <div>
+          <h2 className="text-xs font-semibold uppercase tracking-wide text-gray-400">Workflow interactions</h2>
+          <p className="mt-1 text-xs text-gray-400">
+            Every touchpoint recorded across this case — logged interactions, intake notes and clinical updates.
+          </p>
+        </div>
         {summary && (
-          <span className="text-sm text-gray-500">{summary.total} total across the workflow</span>
+          <div className="shrink-0 text-right">
+            <div className="text-2xl font-bold text-gray-900">{summary.total}</div>
+            <div className="text-xs text-gray-400">total interactions</div>
+          </div>
         )}
       </div>
-      <p className="mt-1 text-xs text-gray-400">
-        Counts every touchpoint — logged interactions, intake notes and clinical updates.
-      </p>
 
       {summary && summary.by_actor.length > 0 && (
         <div className="mt-4 space-y-2">
