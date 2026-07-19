@@ -3,6 +3,7 @@
 
 import type {
   AgentResult,
+  ArchitectureResponse,
   CarePlan,
   CaseloadRow,
   CaseStats,
@@ -52,6 +53,11 @@ async function readError(response: Response): Promise<string> {
 
 export function listPatients(): Promise<PatientSummary[]> {
   return request<PatientSummary[]>("/patients");
+}
+
+// The coordination architecture: domains, their MCP servers and tools.
+export function getArchitecture(): Promise<ArchitectureResponse> {
+  return request<ArchitectureResponse>("/architecture");
 }
 
 export interface RunAgentRequest {

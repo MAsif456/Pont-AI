@@ -72,6 +72,32 @@ export interface ReasoningStep {
   tool_input: string;
   summary: string;
   reasoning: string;
+  // Which domain/MCP server the tool belongs to (clinical | social_care |
+  // family | orchestration). Older stored steps default to "social_care".
+  domain: string;
+}
+
+// --- Coordination architecture (GET /architecture) ---
+
+export interface ToolInfo {
+  name: string;
+  description: string;
+  parameters: Record<string, unknown>;
+}
+
+export interface DomainServer {
+  domain: string;
+  agent_label: string;
+  mcp_server: string;
+  data_sources: string[];
+  is_reasoning_agent: boolean;
+  tools: ToolInfo[];
+}
+
+export interface ArchitectureResponse {
+  servers: DomainServer[];
+  orchestration_label: string;
+  care_plan_label: string;
 }
 
 export interface AgentResult {

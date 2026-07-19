@@ -10,6 +10,7 @@ const NAV = [
   { href: "/board", label: "Referral Board", icon: BoardIcon },
   { href: "/intake", label: "New Assessment", icon: PlusIcon },
   { href: "/reports", label: "Reports", icon: DocIcon },
+  { href: "/coordination", label: "Coordination", icon: NetworkIcon },
 ];
 
 export default function AppNav() {
@@ -98,6 +99,17 @@ function DocIcon() {
     <svg {...iconProps}>
       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
       <path d="M14 2v6h6M8 13h8M8 17h8" />
+    </svg>
+  );
+}
+
+function NetworkIcon() {
+  return (
+    <svg {...iconProps}>
+      <circle cx="5" cy="6" r="2.5" />
+      <circle cx="19" cy="6" r="2.5" />
+      <circle cx="12" cy="18" r="2.5" />
+      <path d="M7.2 7.3 10.5 16M16.8 7.3 13.5 16M7.2 6h9.6" />
     </svg>
   );
 }

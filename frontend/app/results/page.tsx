@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import CoordinationFlow from "@/components/CoordinationFlow";
 import DomainBar from "@/components/DomainBar";
 import EditablePatientSummary from "@/components/EditablePatientSummary";
 import ReasoningTrail from "@/components/ReasoningTrail";
@@ -109,6 +110,10 @@ export default function ResultsPage() {
             <RelatedContextPanel clinical={agent.clinical_context} family={agent.family_context} />
           </div>
         )}
+
+        <div className="mt-6">
+          <CoordinationFlow agent={agent} />
+        </div>
 
         {agent.needs_profile.key_risks.length > 0 && (
           <section className="mt-6">

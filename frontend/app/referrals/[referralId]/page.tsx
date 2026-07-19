@@ -9,6 +9,7 @@ import AssessmentView from "@/components/AssessmentView";
 import { ReferralStatusBadge } from "@/components/Badges";
 import CarePlanView from "@/components/CarePlanView";
 import ClinicalUpdatesPanel from "@/components/ClinicalUpdatesPanel";
+import CoordinationFlow from "@/components/CoordinationFlow";
 import StaffInteractionsPanel from "@/components/StaffInteractionsPanel";
 import VerificationFlag from "@/components/VerificationFlag";
 import {
@@ -119,6 +120,15 @@ export default function ReferralDetailPage() {
           onApprove={approve}
         />
       </div>
+
+      {caseData && caseData.assessments.length > 0 && (
+        <div className="mt-8">
+          <CoordinationFlow
+            agent={caseData.assessments[caseData.assessments.length - 1].agent_result}
+            plan={carePlan}
+          />
+        </div>
+      )}
 
       {carePlan && (
         <div className="mt-8">

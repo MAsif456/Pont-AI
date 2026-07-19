@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import CoordinationFlow from "@/components/CoordinationFlow";
 import DomainBar from "@/components/DomainBar";
 import EditablePatientSummary from "@/components/EditablePatientSummary";
 import RecommendationList from "@/components/RecommendationList";
@@ -17,10 +18,10 @@ export default function ApprovedPage() {
 
   useEffect(() => {
     // sessionStorage is client-only, so it must be read after mount.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+    /* eslint-disable react-hooks/set-state-in-effect */
     setApproval(loadApproval());
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setReady(true);
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
   if (ready && !approval) {
@@ -117,6 +118,10 @@ export default function ApprovedPage() {
             <RelatedContextPanel clinical={agent.clinical_context} family={agent.family_context} />
           </div>
         )}
+
+        <div className="mt-6">
+          <CoordinationFlow agent={agent} />
+        </div>
 
         <div className="mt-6">
           {referred.length > 0 ? (
