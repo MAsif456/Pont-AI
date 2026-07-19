@@ -19,6 +19,7 @@ from models.referral import AgentResult, ReasoningStep
 from models.service import RetrievedService
 from tools.context_lookup import get_clinical_context, get_family_context
 from tools.extract_needs import extract_needs
+from tools.registry import TOOL_MANIFEST
 from tools.search_services import search_services
 
 from .intake import ResolvedInput, resolve_input
@@ -26,6 +27,10 @@ from .prompts import build_plan_prompt
 from .ranking import rank_candidates
 
 MAX_TOOL_CALLS = 5
+
+# Maps each tool to its domain/MCP server so the reasoning trail can be grouped
+# by domain in the coordination view. Built from the single source of truth.
+_TOOL_DOMAIN = {tool["name"]: tool["domain"] for tool in TOOL_MANIFEST}
 
 
 class _ToolCounter:
@@ -167,10 +172,13 @@ def _log(
     trail: list, counter: _ToolCounter, tool: str, tool_input: str, summary: str, reasoning: str
 ) -> None:
     """Append one reasoning-trail step (step number tracks tool spend)."""
+    # A "decision" step is the agent's own planning/finalise reasoning that feeds
+    # orchestration; every other step maps to the domain that owns the tool.
+    domain = "orchestration" if tool == "decision" else _TOOL_DOMAIN.get(tool, "social_care")
     trail.append(
         ReasoningStep(
             step=counter.used, tool=tool, tool_input=tool_input,
-            summary=summary, reasoning=reasoning,
+            summary=summary, reasoning=reasoning, domain=domain,
         )
     )
 

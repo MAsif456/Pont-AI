@@ -35,6 +35,9 @@ class ReasoningStep(BaseModel):
     tool_input: str
     summary: str = Field(description="What the tool returned, summarised.")
     reasoning: str = Field(description="Why the agent took this step / chose the next.")
+    # Which domain/MCP server the tool belongs to, for the coordination view.
+    # Defaults so previously-stored steps (data/cases.json) stay valid.
+    domain: str = "social_care"
 
 
 class AgentResult(BaseModel):

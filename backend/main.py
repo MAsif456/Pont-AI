@@ -13,6 +13,7 @@ from google.genai import errors as genai_errors
 from config import get_settings
 from routers import (
     agent,
+    architecture,
     care_plan,
     cases,
     clinical,
@@ -42,6 +43,7 @@ app.add_middleware(
 )
 
 app.include_router(health.router)
+app.include_router(architecture.router)
 app.include_router(patients.router)
 app.include_router(extract.router)
 app.include_router(agent.router)
