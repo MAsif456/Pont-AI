@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Outfit, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import AppNav from "@/components/AppNav";
+import RoleProvider from "@/components/RoleProvider";
 
 // Typefaces from the Figma design: Outfit for headings, Inter for body,
 // JetBrains Mono for references/codes.
@@ -44,8 +45,10 @@ export default function RootLayout({
       className={`${outfit.variable} ${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full">
-        <AppNav />
-        <div className="min-h-[calc(100vh-4rem)] bg-background">{children}</div>
+        <RoleProvider>
+          <AppNav />
+          <div className="min-h-[calc(100vh-4rem)] bg-background">{children}</div>
+        </RoleProvider>
       </body>
     </html>
   );

@@ -3,29 +3,48 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-// Persistent top navigation shared across every page (the app shell in the
-// mockups). Route paths are kept stable; only the labels/chrome are new.
-const NAV = [
-  { href: "/cases", label: "Dashboard", icon: BarChartIcon },
-  { href: "/board", label: "Referral Board", icon: BoardIcon },
-  { href: "/intake", label: "New Assessment", icon: PlusIcon },
-  { href: "/reports", label: "Reports", icon: DocIcon },
-  { href: "/coordination", label: "Coordination", icon: NetworkIcon },
+import type { DemoRole } from "@/lib/roles";
+import { useRole } from "./RoleProvider";
+import RoleSwitcher from "./RoleSwitcher";
+
+// Persistent top navigation. The visible links depend on the active demo persona:
+// the Social Worker sees the whole system; clinical roles see their patients;
+// family sees only their relative.
+interface NavItem {
+  href: string;
+  label: string;
+  icon: () => React.JSX.Element;
+  allow: DemoRole[];
+}
+
+const ALL_CLINICAL: DemoRole[] = ["ward_nurse", "ot_discharge", "consultant"];
+
+const NAV: NavItem[] = [
+  { href: "/cases", label: "Dashboard", icon: BarChartIcon, allow: ["social_worker"] },
+  { href: "/my-patients", label: "My Patients", icon: UsersIcon, allow: ALL_CLINICAL },
+  { href: "/my-relative", label: "My Relative", icon: HeartIcon, allow: ["family"] },
+  { href: "/board", label: "Referral Board", icon: BoardIcon, allow: ["social_worker", ...ALL_CLINICAL] },
+  { href: "/intake", label: "New Assessment", icon: PlusIcon, allow: ["social_worker"] },
+  { href: "/reports", label: "Reports", icon: DocIcon, allow: ["social_worker"] },
+  { href: "/coordination", label: "Coordination", icon: NetworkIcon, allow: ["social_worker"] },
 ];
 
 export default function AppNav() {
   const pathname = usePathname();
+  const { role } = useRole();
+  const items = NAV.filter((item) => item.allow.includes(role));
+
   return (
     <header className="sticky top-0 z-20 border-b border-gray-200 bg-white">
-      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-        <Link href="/" className="flex items-center gap-2">
+      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-6">
+        <Link href="/" className="flex shrink-0 items-center gap-2">
           <span className="flex h-8 w-8 items-center justify-center rounded-md bg-blue-600 text-white">
             <PulseIcon />
           </span>
           <span className="text-lg font-bold text-blue-900">Pont AI</span>
         </Link>
-        <div className="flex items-center gap-1">
-          {NAV.map((item) => {
+        <div className="flex flex-1 items-center justify-center gap-1">
+          {items.map((item) => {
             const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
             const Icon = item.icon;
             return (
@@ -42,6 +61,7 @@ export default function AppNav() {
             );
           })}
         </div>
+        <RoleSwitcher />
       </nav>
     </header>
   );
@@ -110,6 +130,24 @@ function NetworkIcon() {
       <circle cx="19" cy="6" r="2.5" />
       <circle cx="12" cy="18" r="2.5" />
       <path d="M7.2 7.3 10.5 16M16.8 7.3 13.5 16M7.2 6h9.6" />
+    </svg>
+  );
+}
+
+function UsersIcon() {
+  return (
+    <svg {...iconProps}>
+      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+      <circle cx="9" cy="7" r="4" />
+      <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+    </svg>
+  );
+}
+
+function HeartIcon() {
+  return (
+    <svg {...iconProps}>
+      <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z" />
     </svg>
   );
 }
