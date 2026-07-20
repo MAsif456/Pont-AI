@@ -10,6 +10,7 @@ import type {
   CaseStatus,
   CaseSummary,
   ClinicalContext,
+  FamilyContext,
   InteractionSummary,
   PatientCase,
   PatientSummary,
@@ -66,6 +67,9 @@ export interface RunAgentRequest {
   raw_text?: string;
   source_notes?: SourceNoteInput[];
   patient_name?: string;
+  // Notes from other actors (ward/family) since the last review, folded into a
+  // re-run so their input reaches needs extraction.
+  extra_source_notes?: SourceNoteInput[];
 }
 
 export function runSocialCareAgent(body: RunAgentRequest): Promise<AgentResult> {
@@ -183,6 +187,12 @@ export const startReferral = (id: string) => jsonPost(`/referrals/${id}/start`);
 export const completeReferral = (id: string, caseId: string) =>
   jsonPost(`/referrals/${id}/complete`, { case_id: caseId });
 export const approveReferral = (id: string) => jsonPost(`/referrals/${id}/approve`);
+
+// --- Family context (read-only) ---
+
+export function getFamilyContext(patientId: string): Promise<FamilyContext> {
+  return request<FamilyContext>(`/family-context/${patientId}`);
+}
 
 // --- Clinical updates & reassessment ---
 

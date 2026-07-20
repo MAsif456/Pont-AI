@@ -156,6 +156,8 @@ export interface CaseloadRow {
   flagged: boolean;
   case_id: string | null;
   referral_id: string | null;
+  reassessment_due: boolean;
+  flag_reason: string | null;
 }
 
 export interface StaffInteraction {

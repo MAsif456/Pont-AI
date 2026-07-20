@@ -2,18 +2,10 @@
 
 import { useCallback, useEffect, useState } from "react";
 
-import {
-  ApiError,
-  addClinicalUpdate,
-  getClinicalContext,
-  reassessReferral,
-} from "@/lib/api";
+import { ApiError, getClinicalContext, reassessReferral } from "@/lib/api";
 import { formatDateTime } from "@/lib/format";
 import type { ClinicalUpdate, Referral } from "@/lib/types";
-
-// Clinical updates originate from the hospital side, so only clinical roles.
-const CLINICAL_ROLES = ["Ward Nurse", "Consultant", "OT"];
-const COMMON_FIELDS = ["medication", "mobility", "discharge_readiness_score", "ward observation"];
+import LogUpdateForm from "./LogUpdateForm";
 
 interface Props {
   referral: Referral;
@@ -95,7 +87,13 @@ export default function ClinicalUpdatesPanel({ referral, onReviewed, onRerun }: 
         <ImpactSummary impact={latestImpact} canRerun={canRerun} onRerun={onRerun} />
       )}
 
-      <SimulateForm patientId={patientId} onAdded={refresh} />
+      <div className="mt-5 rounded-md border border-gray-200 bg-white p-4">
+        <h3 className="text-sm font-semibold text-gray-700">Log a clinical update</h3>
+        <p className="mb-3 mt-0.5 text-xs text-gray-400">
+          Record a change from the ward — this is what a hospital system would push automatically.
+        </p>
+        <LogUpdateForm patientId={patientId} sourceSelectable onAdded={refresh} />
+      </div>
     </section>
   );
 }
@@ -169,59 +167,3 @@ function ImpactSummary({
   );
 }
 
-function SimulateForm({ patientId, onAdded }: { patientId: string; onAdded: () => void }) {
-  const [field, setField] = useState(COMMON_FIELDS[0]);
-  const [value, setValue] = useState("");
-  const [source, setSource] = useState(CLINICAL_ROLES[0]);
-  const [busy, setBusy] = useState(false);
-
-  async function submit() {
-    if (!value.trim()) return;
-    setBusy(true);
-    try {
-      await addClinicalUpdate(patientId, { field_changed: field, new_value: value, source });
-      setValue("");
-      onAdded();
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  return (
-    <details className="mt-5 rounded-md border border-dashed border-gray-300 p-3">
-      <summary className="cursor-pointer text-sm font-medium text-gray-600">
-        Simulate incoming clinical update
-      </summary>
-      <p className="mt-2 text-xs text-gray-400">
-        Stands in for data a hospital system would push automatically.
-      </p>
-      <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-3">
-        <select value={field} onChange={(e) => setField(e.target.value)} className={inputClass}>
-          {COMMON_FIELDS.map((f) => (
-            <option key={f} value={f}>{f}</option>
-          ))}
-        </select>
-        <input
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          placeholder="New value (e.g. now twice daily)"
-          className={`${inputClass} sm:col-span-2`}
-        />
-        <select value={source} onChange={(e) => setSource(e.target.value)} className={inputClass}>
-          {CLINICAL_ROLES.map((role) => (
-            <option key={role} value={role}>{role}</option>
-          ))}
-        </select>
-        <button
-          onClick={submit}
-          disabled={busy || !value.trim()}
-          className="rounded-md bg-gray-700 px-4 py-2 text-sm font-medium text-white transition hover:bg-gray-800 disabled:opacity-50 sm:col-span-2"
-        >
-          {busy ? "Adding…" : "Add clinical update"}
-        </button>
-      </div>
-    </details>
-  );
-}
-
-const inputClass = "rounded-md border border-gray-300 bg-white p-2.5 text-sm";
