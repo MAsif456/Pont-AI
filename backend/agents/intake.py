@@ -34,8 +34,14 @@ class ResolvedInput:
 def resolve_input(request: RunAgentRequest) -> ResolvedInput:
     """Build a :class:`ResolvedInput` from the request."""
     if request.patient_id:
-        return _from_patient_id(request.patient_id)
-    return _from_raw_request(request)
+        resolved = _from_patient_id(request.patient_id)
+    else:
+        resolved = _from_raw_request(request)
+    # Notes from other actors (ward/family) since the last review are folded in
+    # so a re-run genuinely reflects their input, whichever intake path was used.
+    if request.extra_source_notes:
+        resolved.source_notes = [*resolved.source_notes, *request.extra_source_notes]
+    return resolved
 
 
 def _from_patient_id(patient_id: str) -> ResolvedInput:

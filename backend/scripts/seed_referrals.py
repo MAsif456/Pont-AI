@@ -45,7 +45,11 @@ def main() -> None:
             electronic_note=record.get("electronic_note"),
             handover_note=record.get("handover_note"),
             referred_at=_referred_at(record["days_ago"], index),
-            status="new",
+            # A seed row may pre-link a completed case (e.g. the family-portal
+            # demo patient), so updates/notes logged live are seen as "new".
+            status=record.get("status", "new"),
+            case_id=record.get("case_id"),
+            clinical_reviewed_at=record.get("clinical_reviewed_at"),
         )
         store.create(referral)
 

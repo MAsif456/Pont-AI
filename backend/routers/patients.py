@@ -4,11 +4,18 @@ from fastapi import APIRouter, Depends
 
 from core.case_store import CaseStore
 from core.caseload import build_caseload
+from core.clinical_update_store import ClinicalUpdateStore
 from core.data_loader import load_patients
+from core.interaction_store import InteractionStore
 from core.referral_store import ReferralStore
 from models.api import CaseloadRow, PatientSummary
 
-from .dependencies import get_case_store, get_referral_store
+from .dependencies import (
+    get_case_store,
+    get_clinical_update_store,
+    get_interaction_store,
+    get_referral_store,
+)
 
 router = APIRouter(tags=["patients"])
 
@@ -23,6 +30,8 @@ def list_patients() -> list[PatientSummary]:
 def caseload(
     referral_store: ReferralStore = Depends(get_referral_store),
     case_store: CaseStore = Depends(get_case_store),
+    clinical_store: ClinicalUpdateStore = Depends(get_clinical_update_store),
+    interaction_store: InteractionStore = Depends(get_interaction_store),
 ) -> list[CaseloadRow]:
     """Return the dashboard caseload: each patient with a derived workflow status."""
-    return build_caseload(referral_store, case_store)
+    return build_caseload(referral_store, case_store, clinical_store, interaction_store)

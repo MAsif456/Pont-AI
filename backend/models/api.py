@@ -38,6 +38,9 @@ class RunAgentRequest(BaseModel):
     raw_text: str | None = None
     source_notes: list[SourceNoteInput] = Field(default_factory=list)
     patient_name: str | None = None
+    # Notes logged by other actors (ward/family) since the last review, folded in
+    # on a re-run so their input reaches needs extraction. Empty on a first run.
+    extra_source_notes: list[SourceNoteInput] = Field(default_factory=list)
 
 
 class GenerateReportRequest(BaseModel):
@@ -73,6 +76,10 @@ class CaseloadRow(BaseModel):
     flagged: bool = False
     case_id: str | None = None
     referral_id: str | None = None
+    # New updates/notes have arrived since the last review — the social worker
+    # should reassess. ``flag_reason`` describes what is new (for the dashboard).
+    reassessment_due: bool = False
+    flag_reason: str | None = None
 
 
 class UploadDocumentResponse(BaseModel):

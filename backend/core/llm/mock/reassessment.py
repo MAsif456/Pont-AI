@@ -17,11 +17,12 @@ _IMPACT_KEYWORDS = (
 
 
 def handle_impact(payload: dict) -> dict:
-    """Return an impact assessment for the supplied clinical updates."""
+    """Return an impact assessment for the supplied clinical updates and notes."""
     updates = payload.get("clinical_updates", [])
-    significant = _is_significant(updates)
+    notes = [str(note) for note in payload.get("interaction_notes", [])]
+    significant = _is_significant(updates) or _notes_significant(notes)
     return {
-        "summary": _summary(updates),
+        "summary": _summary(updates, notes),
         "affects_discharge": significant,
         "discharge_impact": (
             "This change may affect discharge readiness and should be reviewed before discharge."
@@ -48,13 +49,19 @@ def _is_significant(updates: list[dict]) -> bool:
     return False
 
 
-def _summary(updates: list[dict]) -> str:
-    if not updates:
-        return "No new clinical updates to report."
+def _notes_significant(notes: list[str]) -> bool:
+    return any(any(keyword in note.lower() for keyword in _IMPACT_KEYWORDS) for note in notes)
+
+
+def _summary(updates: list[dict], notes: list[str] | None = None) -> str:
     parts = [
         f"{update.get('field_changed', 'field')} changed from "
         f"'{update.get('previous_value', '')}' to '{update.get('new_value', '')}' "
         f"(per {update.get('source', 'clinical staff')})"
         for update in updates
     ]
+    if notes:
+        parts.append("New information received — " + "; ".join(notes))
+    if not parts:
+        return "No new clinical updates to report."
     return "; ".join(parts)

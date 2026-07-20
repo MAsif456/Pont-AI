@@ -7,7 +7,10 @@
     "reason_for_referral": "Lady with moderate dementia, recurrent falls and missed medication, needs support at home following discharge.",
     "electronic_note": null,
     "handover_note": null,
-    "days_ago": 0
+    "days_ago": 0,
+    "status": "report_ready",
+    "case_id": "9a9610c49bb9",
+    "clinical_reviewed_at": "2026-07-04T09:23:46.904930+00:00"
   },
   {
     "referral_id": "RF-002",

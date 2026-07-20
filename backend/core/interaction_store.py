@@ -15,7 +15,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from config import get_settings
-from core.clinical_update_store import ClinicalUpdateStore
+from core.clinical_update_store import ClinicalUpdateStore, _as_dt
 from core.data_loader import load_patients
 from models.interaction import ActorCount, InteractionSummary, StaffInteraction
 
@@ -89,6 +89,16 @@ class InteractionStore:
 
     def list_for(self, patient_id: str) -> list[StaffInteraction]:
         return [item for item in self._load() if item.patient_id == patient_id]
+
+    def logged_since(self, patient_id: str, since: str | None) -> list[StaffInteraction]:
+        """Return logged interactions newer than ``since`` (all when ``since`` is None)."""
+        items = self.list_for(patient_id)
+        if since is None:
+            return items
+        boundary = _as_dt(since)
+        if boundary is None:
+            return items
+        return [item for item in items if (_as_dt(item.timestamp) or boundary) > boundary]
 
 
 def build_summary(

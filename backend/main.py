@@ -18,6 +18,7 @@ from routers import (
     cases,
     clinical,
     extract,
+    family,
     health,
     interactions,
     patients,
@@ -52,6 +53,7 @@ app.include_router(upload.router)
 app.include_router(cases.router)
 app.include_router(referrals.router)
 app.include_router(clinical.router)
+app.include_router(family.router)
 app.include_router(care_plan.router)
 app.include_router(interactions.router)
 

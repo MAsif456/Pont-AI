@@ -18,6 +18,9 @@ You are a social-care reassessment assistant. A patient already has an assessmen
 and recommendations. New clinical updates have arrived from the hospital side. \
 Decide whether they change the picture -- do not restate the whole assessment.
 
+New clinical updates and/or notes from the ward or family have arrived. Decide \
+whether they change the picture -- do not restate the whole assessment.
+
 Return JSON ONLY (no prose, no code fences):
 {{"summary": string, "affects_discharge": boolean, "discharge_impact": string, "recommend_rerun": boolean, "recommendation_note": string}}
 
@@ -32,13 +35,17 @@ INPUT:
 
 
 def assess_update_impact(
-    llm: LLMClient, previous_assessment: dict, updates: list[ClinicalUpdate]
+    llm: LLMClient,
+    previous_assessment: dict,
+    updates: list[ClinicalUpdate],
+    interaction_notes: list[str] | None = None,
 ) -> ImpactAssessment:
-    """Assess whether the clinical updates change the existing picture."""
+    """Assess whether the clinical updates and/or notes change the existing picture."""
     payload = json.dumps(
         {
             "previous_assessment": previous_assessment,
             "clinical_updates": [update.model_dump() for update in updates],
+            "interaction_notes": interaction_notes or [],
         }
     )
     result = generate_json(llm, _PROMPT.format(payload=payload))

@@ -10,6 +10,7 @@ from pydantic import BaseModel
 
 from core.case_store import CaseStore
 from core.clinical_update_store import ClinicalUpdateStore
+from core.interaction_store import InteractionStore
 from core.llm.base import LLMClient
 from core.reassessment import assess_update_impact
 from core.referral_store import ReferralStore, build_referral, now_iso
@@ -25,6 +26,7 @@ from models.referral_intake import (
 from .dependencies import (
     get_case_store,
     get_clinical_update_store,
+    get_interaction_store,
     get_llm,
     get_referral_store,
 )
@@ -128,12 +130,15 @@ def reassess(
     store: ReferralStore = Depends(get_referral_store),
     cases: CaseStore = Depends(get_case_store),
     clinical: ClinicalUpdateStore = Depends(get_clinical_update_store),
+    interactions: InteractionStore = Depends(get_interaction_store),
     llm: LLMClient = Depends(get_llm),
 ) -> ReassessResponse:
-    """Lightweight check of new clinical updates against the existing assessment.
+    """Lightweight check of new clinical updates and notes against the assessment.
 
-    Returns early without re-running anything when nothing has changed, so the
-    expensive agent pipeline is only re-run when warranted.
+    Considers both incoming clinical updates and any notes logged by the ward or
+    family since the last review, so information from every actor can prompt a
+    reassessment. Returns early when nothing has changed, so the expensive agent
+    pipeline is only re-run when warranted.
     """
     referral = _require(store.get(referral_id), referral_id)
     if not referral.patient_id or not referral.case_id:
@@ -142,12 +147,16 @@ def reassess(
         )
 
     updates = clinical.updates_since(referral.patient_id, referral.clinical_reviewed_at)
-    if not updates:
+    notes = interactions.logged_since(referral.patient_id, referral.clinical_reviewed_at)
+    if not updates and not notes:
         return ReassessResponse(
-            changed=False, message="No new clinical updates since the last assessment."
+            changed=False, message="No new information since the last review."
         )
 
-    impact = assess_update_impact(llm, _previous_summary(cases, referral.case_id), updates)
+    note_strings = [f"{note.actor_role}: {note.note}" for note in notes]
+    impact = assess_update_impact(
+        llm, _previous_summary(cases, referral.case_id), updates, note_strings
+    )
     record = ReassessmentRecord(
         reassessed_at=now_iso(),
         update_ids=[update.update_id for update in updates],

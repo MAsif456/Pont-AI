@@ -7,18 +7,23 @@ import warnings
 import pytest
 from fastapi.testclient import TestClient
 
+from agents.intake import resolve_input
 from agents.social_care_agent import SocialCareAgent
 from config import BACKEND_ROOT
 from core.case_store import CaseStore
 from core.clinical_update_store import ClinicalUpdateStore
+from core.interaction_store import InteractionStore
 from core.reassessment import assess_update_impact
 from core.referral_store import ReferralStore
 from main import app
+from models.api import RunAgentRequest
 from models.context import ClinicalUpdate
+from models.patient import SourceNoteInput
 from routers.dependencies import (
     get_agent,
     get_case_store,
     get_clinical_update_store,
+    get_interaction_store,
     get_llm,
     get_referral_store,
     get_vector_store,
@@ -85,6 +90,25 @@ def test_impact_minor_change_holds(mock_llm):
     assert impact.recommend_rerun is False
 
 
+def test_impact_folds_significant_family_note(mock_llm):
+    """A family note carrying a decline signal warrants a re-run on its own."""
+    note = "Family/Carer: had a fall, can no longer manage stairs"
+    impact = assess_update_impact(mock_llm, {}, [], interaction_notes=[note])
+    assert impact.affects_discharge is True
+    assert impact.recommend_rerun is True
+
+
+def test_resolve_input_appends_extra_source_notes():
+    """Notes from other actors are folded into the agent's source notes on re-run."""
+    request = RunAgentRequest(
+        patient_id="PT-001",
+        extra_source_notes=[SourceNoteInput(source="Family/Carer", text="had a fall at home")],
+    )
+    resolved = resolve_input(request)
+    texts = [note.text for note in resolved.source_notes]
+    assert "had a fall at home" in texts
+
+
 # --- API tests ---
 
 
@@ -101,6 +125,9 @@ def client(mock_llm, ingested_store, tmp_path):
     )
     app.dependency_overrides[get_clinical_update_store] = lambda: ClinicalUpdateStore(
         path=clinical_path
+    )
+    app.dependency_overrides[get_interaction_store] = lambda: InteractionStore(
+        path=tmp_path / "interactions.json"
     )
     yield TestClient(app)
     app.dependency_overrides.clear()
@@ -160,3 +187,19 @@ def test_reassess_significant_then_minor(client):
     minor = client.post(f"/referrals/{referral_id}/reassess").json()
     assert minor["changed"] is True
     assert minor["impact"]["recommend_rerun"] is False
+
+
+def test_reassess_folds_a_family_note(client):
+    """A family note logged after the last review drives a reassessment."""
+    referral_id = _assessed_referral(client)
+    client.post(
+        "/patients/PT-001/interactions",
+        json={
+            "actor_role": "Family/Carer",
+            "note": "Concern: had a fall, can no longer manage stairs",
+        },
+    )
+    result = client.post(f"/referrals/{referral_id}/reassess").json()
+    assert result["changed"] is True
+    assert result["impact"]["recommend_rerun"] is True
+    assert "New information" in result["impact"]["summary"]
