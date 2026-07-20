@@ -9,7 +9,10 @@ import AssessmentView from "@/components/AssessmentView";
 import { ReferralStatusBadge } from "@/components/Badges";
 import CarePlanView from "@/components/CarePlanView";
 import ClinicalUpdatesPanel from "@/components/ClinicalUpdatesPanel";
-import CoordinationFlow from "@/components/CoordinationFlow";
+import CoordinationTimeline from "@/components/CoordinationTimeline";
+import LogUpdateForm from "@/components/LogUpdateForm";
+import RoleGuard from "@/components/RoleGuard";
+import { useRole } from "@/components/RoleProvider";
 import StaffInteractionsPanel from "@/components/StaffInteractionsPanel";
 import VerificationFlag from "@/components/VerificationFlag";
 import {
@@ -19,6 +22,7 @@ import {
   completeReferral,
   getCarePlan,
   getCase,
+  getInteractions,
   getReferral,
   screenReferral,
   startReferral,
@@ -34,6 +38,16 @@ import { runPipeline } from "@/lib/pipeline";
 import type { CarePlan, PatientCase, Referral } from "@/lib/types";
 
 export default function ReferralDetailPage() {
+  return (
+    <RoleGuard allow={["social_worker", "ward_nurse", "ot_discharge", "consultant"]}>
+      <ReferralDetail />
+    </RoleGuard>
+  );
+}
+
+function ReferralDetail() {
+  const { role, meta } = useRole();
+  const isSocialWorker = role === "social_worker";
   const { referralId } = useParams<{ referralId: string }>();
   const [referral, setReferral] = useState<Referral | null>(null);
   const [caseData, setCaseData] = useState<PatientCase | null>(null);
@@ -75,7 +89,7 @@ export default function ReferralDetailPage() {
   const runAgent = () =>
     act("running", async () => {
       await startReferral(referralId);
-      const result = await runPipeline(buildAgentRequest(referral!));
+      const result = await runPipeline(await buildAgentRequest(referral!));
       await completeReferral(referralId, result.caseId!);
     });
 
@@ -108,24 +122,41 @@ export default function ReferralDetailPage() {
         </div>
       )}
 
-      <div className="mt-6">
-        <ActionPanel
-          referral={referral}
-          busy={busy}
-          worker={worker}
-          setWorker={setWorker}
-          onScreen={() => act("screening", () => screenReferral(referralId))}
-          onAssign={() => act("assigning", () => assignReferral(referralId, worker.trim() || "Me"))}
-          onRun={runAgent}
-          onApprove={approve}
-        />
-      </div>
+      {isSocialWorker && (
+        <div className="mt-6">
+          <ActionPanel
+            referral={referral}
+            busy={busy}
+            worker={worker}
+            setWorker={setWorker}
+            onScreen={() => act("screening", () => screenReferral(referralId))}
+            onAssign={() => act("assigning", () => assignReferral(referralId, worker.trim() || "Me"))}
+            onRun={runAgent}
+            onApprove={approve}
+          />
+        </div>
+      )}
 
-      {caseData && caseData.assessments.length > 0 && (
+      {!isSocialWorker && (
+        <section className="mt-6 rounded-lg border border-gray-200 bg-white p-5">
+          <h2 className="text-sm font-semibold text-gray-700">Log a clinical update</h2>
+          <p className="mb-3 mt-0.5 text-xs text-gray-400">
+            Report a change from the ward — it goes to the social care team, which may reassess.
+          </p>
+          {referral.patient_id ? (
+            <LogUpdateForm patientId={referral.patient_id} defaultSource={meta.actorRole} />
+          ) : (
+            <p className="text-sm text-gray-400">This patient is not in the system yet.</p>
+          )}
+        </section>
+      )}
+
+      {referral.patient_id && (
         <div className="mt-8">
-          <CoordinationFlow
-            agent={caseData.assessments[caseData.assessments.length - 1].agent_result}
-            plan={carePlan}
+          <CoordinationTimeline
+            patientId={referral.patient_id}
+            reassessments={referral.reassessments}
+            carePlanVersion={carePlan?.version}
           />
         </div>
       )}
@@ -136,13 +167,13 @@ export default function ReferralDetailPage() {
         </div>
       )}
 
-      {referral.patient_id && (
+      {isSocialWorker && referral.patient_id && (
         <div className="mt-8">
           <StaffInteractionsPanel patientId={referral.patient_id} />
         </div>
       )}
 
-      {referral.case_id && referral.patient_id && (
+      {isSocialWorker && referral.case_id && referral.patient_id && (
         <div className="mt-8">
           <ClinicalUpdatesPanel referral={referral} onReviewed={() => load()} onRerun={runAgent} />
         </div>
@@ -158,9 +189,20 @@ export default function ReferralDetailPage() {
   );
 }
 
-function buildAgentRequest(referral: Referral): RunAgentRequest {
+async function buildAgentRequest(referral: Referral): Promise<RunAgentRequest> {
   if (referral.patient_id) {
-    return { patient_id: referral.patient_id, patient_name: referral.patient_name };
+    // Fold in any ward/family notes logged since the last review so the re-run
+    // genuinely reflects the new information they reported.
+    const summary = await getInteractions(referral.patient_id);
+    const reviewedAt = referral.clinical_reviewed_at;
+    const extra = summary.interactions
+      .filter((item) => item.channel === "logged" && (!reviewedAt || item.timestamp > reviewedAt))
+      .map((item) => ({ source: item.actor_role, text: item.note }));
+    return {
+      patient_id: referral.patient_id,
+      patient_name: referral.patient_name,
+      extra_source_notes: extra,
+    };
   }
   const notes = [
     referral.electronic_note && { source: "Electronic record", text: referral.electronic_note },

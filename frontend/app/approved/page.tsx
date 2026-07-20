@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import CoordinationFlow from "@/components/CoordinationFlow";
 import DomainBar from "@/components/DomainBar";
 import EditablePatientSummary from "@/components/EditablePatientSummary";
 import RecommendationList from "@/components/RecommendationList";
@@ -119,9 +118,6 @@ export default function ApprovedPage() {
           </div>
         )}
 
-        <div className="mt-6">
-          <CoordinationFlow agent={agent} />
-        </div>
 
         <div className="mt-6">
           {referred.length > 0 ? (

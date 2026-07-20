@@ -97,6 +97,18 @@ export default function DashboardPage() {
         ))}
       </div>
 
+      {(rows ?? []).some((row) => row.reassessment_due) && (
+        <div className="mt-4 flex items-center gap-2 rounded-lg border-l-4 border-amber-500 bg-amber-50 p-3 text-sm text-amber-900">
+          <span aria-hidden>⚠</span>
+          <span>
+            <span className="font-semibold">
+              {(rows ?? []).filter((row) => row.reassessment_due).length} patient(s) have new information
+            </span>{" "}
+            since their last review — open the patient to reassess.
+          </span>
+        </div>
+      )}
+
       <div className="mt-4 overflow-hidden rounded-lg border border-gray-200 bg-white">
         <table className="w-full text-left text-sm">
           <thead className="bg-gray-50 text-xs uppercase tracking-wide text-gray-400">
@@ -123,6 +135,14 @@ export default function DashboardPage() {
                     <Avatar name={row.name} />
                     <span className="font-medium text-gray-900">{row.name}</span>
                     {row.flagged && <span title="Flag on record" className="text-amber-500">⚠</span>}
+                    {row.reassessment_due && (
+                      <span
+                        title={row.flag_reason ?? "New information"}
+                        className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-800"
+                      >
+                        Reassess
+                      </span>
+                    )}
                   </div>
                 </td>
                 <td className="px-4 py-3 text-gray-600">{row.age ?? "—"}</td>
