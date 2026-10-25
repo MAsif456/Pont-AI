@@ -1,6 +1,95 @@
-# Pont AI
+## Pont AI
 
-An AI prototype that automates social-care referral coordination for dementia patients in Cardiff. A social worker provides a patient assessment (form, stored record, or PDF), and Pont extracts a structured needs profile, reconciles conflicting source accounts, retrieves relevant Cardiff services, and drafts a ranked referral report for a care coordinator to review.
+An AI-powered tool that helps patients leave hospital with social care
+already in place, built around dementia discharge pathways.
+
+**The problem:** discharge into social care was tracked on manual
+spreadsheets, and staff had to visit wards for updates. This was slow,
+so patients waited too long for care, and information was spread
+across social care, clinical and family sources.
+
+**The solution:** Pont AI brings those three domains into one
+coordinated, MCP-style system.
+- **Social care:** what care is available and what suits the patient.
+- **Clinical:** the patient's condition and how much care they need.
+- **Family:** what the family wants, such as living with family, a care
+  home or home-based care.
+
+The AI assesses all three, using ward notes and other records, and
+produces a recommendation. A social worker reviews and approves it, as
+the AI never gives the final approval. It also watches for new notes
+and family updates, and reassesses when a change could affect
+discharge, such as increased medication, so a patient is not
+discharged when it is not yet safe.
+
+**How it developed:** the first version only summarised patient notes,
+such as doctor notes, and suggested what care a patient might need. It
+worked, but it was a simple tool. On my supervisor's advice to go
+further, and after hearing social workers describe how poorly
+information is coordinated, I rebuilt it as a coordination system. It
+now treats social care, clinical and family information as separate
+inputs, takes ward nursing updates into account, and follows an
+MCP-style design that brings everything into one place.
+
+Built solo during the 8-week Google DeepMind Research Ready internship,
+working with social workers and Caerphilly Council, under the
+supervision of an academic at Cardiff Metropolitan University. It is a
+working prototype and has not been deployed in a hospital. I
+demonstrated it to Caerphilly Council and to university staff,
+including the head of computer science.
+
+**Solo project** | **Tech:** Python, FastAPI, Pydantic, Next.js,
+TypeScript, Tailwind CSS
+
+## My contribution
+
+I designed and built the whole system, from the backend and AI layer
+to the interface.
+
+### AI and agent architecture
+- Built the core AI infrastructure: an LLM abstraction layer,
+  embeddings and a persistent vector store.
+- Built MCP-style agent tools and a Social Care Agent loop that
+  generates assessment reports.
+- Built Dynamic Care Plan synthesis, which reconciles the output of
+  all three domains into one plan.
+- Showed the coordination architecture in the app, tagging each
+  reasoning step by domain, and added a plain-English coordination
+  timeline for non-technical users.
+
+### Referral coordination and reassessment
+- Built referral intake and a coordination API, with screening that
+  cross-checks referrals against clinical notes.
+- Modelled external clinical updates in an append-only store, and built
+  reassessment that runs when new clinical updates arrive.
+- Extended reassessment so it can be driven by ward and family
+  updates, with a family-context endpoint.
+- Added service contact details and used them to enrich the
+  recommendations.
+
+### Data and documents
+- Created synthetic datasets for all three domains, sample referral
+  PDFs and a seed script, so the system can be demonstrated without
+  real patient data.
+- Built extraction of patient details from uploaded assessment
+  documents, which fills an editable patient summary.
+
+### Frontend and user experience
+- Built the interface in Next.js, TypeScript and Tailwind: intake form,
+  upload and agent-progress screen, results and referral report,
+  coordination board, case dashboard and patient history.
+- Built a staff-interactions panel with per-actor analytics, a caseload
+  dashboard with derived workflow status, and a reports page.
+- Added role-based portals for ward nurses ("My Patients") and
+  families ("My Relative"), with a demo-mode role switcher.
+- Applied an NHS-style colour palette and design system across the
+  app.
+
+### Testing and documentation
+- Wrote a backend test suite covering the coordination, reassessment,
+  Dynamic Care Plan, staff-interaction and caseload features.
+- Documented the coordination layer, reactive reassessment and
+  orchestration layer.
 
 > **Decision-support only.** Every report is explicitly marked as requiring human review and approval before any referral is actioned.
 
